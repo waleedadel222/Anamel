@@ -1,5 +1,4 @@
 import 'package:anamel/routes/GoRouterGenerator.dart';
-import 'package:anamel/screens/splash_screen.dart';
 import 'package:anamel/styling/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
