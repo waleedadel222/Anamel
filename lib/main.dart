@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           title: "Amanel",
           theme: AppThemes.lightTheme,
           darkTheme: AppThemes.darkTheme,
-          themeMode: ThemeMode.light,
+          themeMode: ThemeMode.system,
           // home: child,
           routerConfig: GoRouterGenerator.mainRouter,
 

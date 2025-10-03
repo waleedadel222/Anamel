@@ -1,6 +1,6 @@
 import 'package:anamel/styling/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:anamel/styling/app_styles.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -8,28 +8,24 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.primaryVariant,
+
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: <Widget>[
-            Text(
-              "Anamel",
-              style: TextStyle(
-                fontSize: 40.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primaryColor,
+            Positioned.fill(
+              child: Image.asset(
+                "assets/images/anamel_cover.jpg",
+                fit: BoxFit.cover,
               ),
             ),
 
-            SizedBox(height: 8.sp),
-            Text(
-              "Made With Love",
-              style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.primaryColor,
-              ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("Anamel", style: AppStyles.mainHeadingStyle),
+                Text("Made With Love", style: AppStyles.subHeadingStyle),
+              ],
             ),
           ],
         ),
