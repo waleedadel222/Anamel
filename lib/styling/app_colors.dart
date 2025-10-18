@@ -31,4 +31,7 @@ class AppColors {
   static const Color warning = Color(0xFFFFA000);
   static const Color info = Color(0xFF0288D1);
   static const Color divider = Color(0xFFDDDDDD);
+
+  static const Color wightColor = Color(0xFFFFFFFF);
+  static const Color blackColor = Color(0xFF000000);
 }

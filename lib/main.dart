@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       designSize: Size(375, 812),
       builder:(context, child){
         return MaterialApp.router(
+          ////cvhvgmguxn75
           title: "Amanel",
           theme: AppThemes.lightTheme,
           darkTheme: AppThemes.darkTheme,
