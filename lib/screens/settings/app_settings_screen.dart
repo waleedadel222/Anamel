@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../core/styling/theme_notifier.dart';
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+class AppSettingsScreen extends StatelessWidget {
+  const AppSettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

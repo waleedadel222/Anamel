@@ -39,7 +39,8 @@ class SplashScreen extends StatelessWidget {
 // first time to open the app , wait 3 second then go to login screen
 void goToLoginScreen(BuildContext context) {
   Future.delayed(Duration(seconds: 3), () {
-    GoRouter.of(context).pushReplacement(AppRouting.login);
+    // GoRouter.of(context).pushReplacement(AppRouting.login);
+    GoRouter.of(context).pushReplacement(AppRouting.register);
   });
 }
 

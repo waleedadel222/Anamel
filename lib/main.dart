@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import 'core/routes/GoRouterGenerator.dart';
+import 'core/routes/go_router_generator.dart';
 import 'core/styling/app_themes.dart';
 import 'core/styling/theme_notifier.dart';
 
