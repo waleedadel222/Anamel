@@ -6,8 +6,11 @@ import 'app_routing.dart';
 class RouteGenerator {
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      // home
       case AppRouting.home:
         return MaterialPageRoute(builder: (context) => SplashScreen());
+
+        //cart
       case AppRouting.cart:
         return MaterialPageRoute(
           builder: (context) => SplashScreen(),
@@ -15,6 +18,8 @@ class RouteGenerator {
           //   productName: settings.arguments as String,
           // ),
         );
+
+        // settings
       case AppRouting.settings:
         return MaterialPageRoute(
           builder: (context) => SplashScreen(),
@@ -23,6 +28,8 @@ class RouteGenerator {
             arguments: settings.arguments as String,
           ),
         );
+
+        // error routing
       default:
         return MaterialPageRoute(
           builder: (context) => const Scaffold(
