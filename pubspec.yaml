@@ -37,6 +37,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   go_router: ^16.2.2
   flutter_svg: ^2.2.1
+  flutter_svg_provider: ^1.0.7
   pin_code_fields: ^8.0.1
   provider: ^6.1.0
   shared_preferences: ^2.3.2
@@ -70,8 +71,8 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
-     - assets/images/
-     - assets/icons/
+    - assets/images/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -99,9 +100,9 @@ flutter:
   fonts:
     - family: OpenSans
       fonts:
-         - asset: assets/fonts/OpenSans-Bold.ttf
-         - asset: assets/fonts/OpenSans-Medium.ttf
-         - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-Bold.ttf
+        - asset: assets/fonts/OpenSans-Medium.ttf
+        - asset: assets/fonts/OpenSans-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

@@ -1,33 +1,43 @@
+import 'package:anamel/core/const/app_assets_path.dart';
 import 'package:anamel/core/routes/app_routing.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../core/styling/app_colors.dart';
 import '../core/styling/app_styles.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     goToLoginScreen(context);
 
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/anamel_cover.jpg"),
-          fit: BoxFit.cover,
+          image: Svg(AppAssetsPath.anamelCoverImage),
+          fit: BoxFit.fitHeight,
         ),
       ),
+
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Anamel", style: AppStyles.mainHeadingStyle),
-              Text("Made With Love", style: AppStyles.subHeadingStyle),
+              Text(
+                "Anamel",
+                style: AppStyles.logoTitleStyle.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              Text(
+                "Made With Love ",
+                style: AppStyles.logoSubtitleStyle.copyWith(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
             ],
           ),
         ),
@@ -40,7 +50,7 @@ class SplashScreen extends StatelessWidget {
 void goToLoginScreen(BuildContext context) {
   Future.delayed(Duration(seconds: 3), () {
     // GoRouter.of(context).pushReplacement(AppRouting.login);
-    GoRouter.of(context).pushReplacement(AppRouting.register);
+    GoRouter.of(context).pushReplacement(AppRouting.forgotPassword);
   });
 }
 

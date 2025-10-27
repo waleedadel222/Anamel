@@ -1,8 +1,11 @@
+import 'package:anamel/screens/auth/forget_password/create_new_password.dart';
 import 'package:anamel/screens/auth/login/login_screen.dart';
 import 'package:anamel/screens/auth/register/register_screen.dart';
 import 'package:anamel/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../screens/auth/forget_password/forget_password_screen.dart';
+import '../../screens/auth/verify/opt_verify.dart';
 import '../../screens/settings/app_settings_screen.dart';
 import 'app_routing.dart';
 
@@ -38,8 +41,23 @@ class GoRouterGenerator {
       GoRoute(
         name: AppRouting.forgotPassword,
         path: AppRouting.forgotPassword,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const ForgetPasswordScreen(),
       ),
+
+      // New Password screen
+      GoRoute(
+        name: AppRouting.createNewPassword,
+        path: AppRouting.createNewPassword,
+        builder: (context, state) => const CreateNewPassword(),
+      ),
+
+      // OptVerify screen
+      GoRoute(
+        name: AppRouting.otpVerification,
+        path: AppRouting.otpVerification,
+        builder: (context, state) => const OptVerify(),
+      ),
+
 
       // home screen
       GoRoute(

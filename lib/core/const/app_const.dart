@@ -1,5 +1,5 @@
 class AppConst {
-  static String mode = "light";
+  static String mode = "light"; // values are light and dark
 
   static bool isValidEmail(String email) {
     const pattern =
