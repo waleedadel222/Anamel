@@ -1,5 +1,5 @@
 class AppConst {
-  static String mode = "light";
+  static String mode = "light"; // values are light and dark
 
   static bool isValidEmail(String email) {
     const pattern =
@@ -14,5 +14,14 @@ class AppConst {
 
     // return true when email is valid
     return regex.hasMatch(email);
+  }
+
+  // password is valid if it has at least 8 characters, an uppercase letter,
+  // a lowercase letter, and a number
+  static bool isValidPassword(String password) {
+    RegExp regex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$');
+
+    // return true when password is valid
+    return regex.hasMatch(password);
   }
 }

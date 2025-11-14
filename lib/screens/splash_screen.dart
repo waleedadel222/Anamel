@@ -1,50 +1,91 @@
+import 'package:anamel/core/const/app_assets_path.dart';
 import 'package:anamel/core/routes/app_routing.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../core/styling/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../core/styling/app_styles.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  Future<void> initState() async {
+    super.initState();
+
+    if (await _checkFirstTime()) {
+      // Navigate to onboarding screen
+      Future.delayed(Duration(seconds: 2), () {
+        GoRouter.of(context).pushReplacement(AppRouting.onboarding);
+      });
+    } else {
+      _checkUser();
+    }
+  }
+
+  Future<bool> _checkFirstTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstTime = prefs.getBool("is_first_time") ?? true;
+
+    if (isFirstTime) {
+      prefs.setBool("is_first_time", false);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void _checkUser() {
+    final user = FirebaseAuth.instance.currentUser;
+    // return user != null ? true : false;
+
+    Future.delayed(Duration(seconds: 2), () {
+      if (user != null) {
+        GoRouter.of(context).pushReplacement(AppRouting.home);
+      } else {
+        GoRouter.of(context).pushReplacement(AppRouting.login);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-
-    goToLoginScreen(context);
-
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/anamel_cover.jpg"),
-          fit: BoxFit.cover,
+          image: Svg(AppAssetsPath.anamelCoverImage),
+          fit: BoxFit.fitHeight,
         ),
       ),
+
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Anamel", style: AppStyles.mainHeadingStyle),
-              Text("Made With Love", style: AppStyles.subHeadingStyle),
+              Text(
+                "Anamel",
+                style: AppStyles.logoTitleStyle.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              Text(
+                "Made With Love ",
+                style: AppStyles.logoSubtitleStyle.copyWith(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
   }
-}
-
-// first time to open the app , wait 3 second then go to login screen
-void goToLoginScreen(BuildContext context) {
-  Future.delayed(Duration(seconds: 3), () {
-    // GoRouter.of(context).pushReplacement(AppRouting.login);
-    GoRouter.of(context).pushReplacement(AppRouting.register);
-  });
-}
-
-//  not the first time ,go to home screen
-void goToHomeScreen(BuildContext context) {
-  GoRouter.of(context).pushReplacement(AppRouting.home);
 }
