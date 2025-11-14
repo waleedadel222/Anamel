@@ -1,3 +1,4 @@
+import 'package:anamel/core/const/app_const.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../data/repository/auth_firebase_repository.dart';
 import '../data/repository/user_repository.dart';
@@ -60,6 +61,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
 
         emit(AuthSuccess(userModelData));
+      } catch (e) {
+        emit(AuthFailure(e.toString()));
+      }
+    });
+
+    on<ForgotPasswordEvent>((event, emit) async {
+      emit(AuthLoading());
+
+      try {
+
+        await authFirebaseRepo.forgetPassword(event.email);
+
+        //delete any cached user data and log out
+        await authFirebaseRepo.logout();
+        await AppConst.clearUserData();
+
+        emit(PasswordResetSuccess("a password reset link has been sent to your email"));
       } catch (e) {
         emit(AuthFailure(e.toString()));
       }

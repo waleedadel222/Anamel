@@ -16,19 +16,17 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
 
-    GoRouter.of(context).pushReplacement(AppRouting.register);
-
-    // if (await _checkFirstTime()) {
-    //   // Navigate to onboarding screen
-    //   Future.delayed(Duration(seconds: 2), () {
-    //     GoRouter.of(context).pushReplacement(AppRouting.onboarding);
-    //   });
-    // } else {
-    //   _checkUser();
-    // }
+    if (await _checkFirstTime()) {
+      // Navigate to onboarding screen
+      Future.delayed(Duration(seconds: 2), () {
+        GoRouter.of(context).pushReplacement(AppRouting.onboarding);
+      });
+    } else {
+      _checkUser();
+    }
   }
 
   Future<bool> _checkFirstTime() async {

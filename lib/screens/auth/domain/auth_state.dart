@@ -30,3 +30,8 @@ class AuthFailure extends AuthState {
 }
 
 class AuthLogOut extends AuthState {}
+
+class PasswordResetSuccess extends AuthState {
+  final String message;
+  PasswordResetSuccess(this.message);
+}

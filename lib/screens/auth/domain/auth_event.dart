@@ -47,7 +47,6 @@ class UpdateUserProfile extends AuthEvent {
   List<Object?> get props => [uid, updatedData];
 }
 
-
 class DeleteUserAccount extends AuthEvent {
   final String uid;
 
@@ -57,16 +56,16 @@ class DeleteUserAccount extends AuthEvent {
   List<Object?> get props => [uid];
 }
 
-
-class ResetPassword extends AuthEvent {
+class ForgotPasswordEvent extends AuthEvent {
   final String email;
 
-  ResetPassword(this.email);
+  ForgotPasswordEvent(this.email);
 
   @override
   List<Object?> get props => [email];
 }
 
+// Social Authentication Events
 class SocialLogin extends AuthEvent {
   final String provider; // e.g., 'google', 'facebook'
 
@@ -75,6 +74,7 @@ class SocialLogin extends AuthEvent {
   @override
   List<Object?> get props => [provider];
 }
+
 class SocialLogout extends AuthEvent {
   final String provider; // e.g., 'google', 'facebook'
 
@@ -83,4 +83,3 @@ class SocialLogout extends AuthEvent {
   @override
   List<Object?> get props => [provider];
 }
-
