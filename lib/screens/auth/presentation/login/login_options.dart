@@ -17,12 +17,12 @@ class LoginOptions extends StatelessWidget {
         //---------- or login with------------
         DividerLine(title: "Or Login with"),
 
-        SizedBox(height: 16.h),
+        SizedBox(height: 24.h),
 
         // Google Button
         GoogleButton(textOnButton: "Login with Google", onButtonTap: () {}),
 
-        SizedBox(height: 32.h),
+        SizedBox(height: 48.h),
 
         // do not have account ?
         RichTextWidget(

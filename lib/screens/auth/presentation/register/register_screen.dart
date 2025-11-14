@@ -15,7 +15,6 @@ import '../../domain/auth_bloc.dart';
 import '../../domain/auth_event.dart';
 import '../../domain/auth_state.dart';
 
-
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -50,7 +49,6 @@ class _RegisterScreen extends State<RegisterScreen> {
             child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
                 if (state is AuthSuccess) {
-
                   // ProfileScreen(userData: state.userData);
 
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -58,11 +56,10 @@ class _RegisterScreen extends State<RegisterScreen> {
                   );
                   // go to main screen
                   GoRouter.of(context).pushReplacementNamed(AppRouting.home);
-
                 } else if (state is AuthFailure) {
                   ScaffoldMessenger.of(
                     context,
-                  ).showSnackBar(SnackBar(content: Text(state.error)));
+                  ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
                 }
               },
 
@@ -74,7 +71,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
 
                   children: [
-                    SizedBox(height: 100.h),
+                    SizedBox(height: 70.h),
 
                     // Join text
                     Align(
@@ -85,7 +82,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       ),
                     ),
 
-                    SizedBox(height: 64.h),
+                    SizedBox(height: 48.h),
 
                     // username text field
                     TextFormFieldWidget(
@@ -101,7 +98,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                     ),
 
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 20.h),
 
                     // email text field
                     TextFormFieldWidget(
@@ -119,18 +116,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                     ),
 
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 20.h),
 
                     // Password text field
                     TextFormFieldWidget(
                       hintText: "Password",
                       controller: passwordController,
                       isObscureText: isObscurePassword,
-                      prefixIcon: SvgPicture.asset(
-                        AppAssetsPath.passwordLockIcon,
-                        // height: 12.h,
-                        // width: 12.w,
-                      ),
+                      prefixIcon: Icon(Icons.password),
 
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -157,19 +150,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                     ),
 
-                    SizedBox(height: 32.h),
+                    SizedBox(height: 20.h),
 
                     // confirm Password text field
                     TextFormFieldWidget(
                       hintText: "Confirm Password",
                       controller: confirmPasswordController,
                       isObscureText: isObscureConformPassword,
-                      prefixIcon: SvgPicture.asset(
-                        AppAssetsPath.passwordLockIcon,
-                        // height: 12.h,
-                        // width: 12.w,
-                      ),
-
+                      prefixIcon: Icon(Icons.password),
                       suffixIcon: IconButton(
                         icon: Icon(
                           isObscureConformPassword
@@ -200,7 +188,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                     ),
 
-                    SizedBox(height: 32.h),
+                    SizedBox(height: 20.h),
 
                     // register Button
                     MainElevatedButton(
@@ -216,14 +204,15 @@ class _RegisterScreen extends State<RegisterScreen> {
                                     passwordController.text.trim(),
                                   ),
                                 );
-                              } else {
-                                //  Validation failed
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("something went wrong!"),
-                                  ),
-                                );
                               }
+                              // else {
+                              //   //  Validation failed
+                              //   ScaffoldMessenger.of(context).showSnackBar(
+                              //     const SnackBar(
+                              //       content: Text("something went wrong!"),
+                              //     ),
+                              //   );
+                              // }
                             },
                     ),
 
@@ -236,7 +225,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         ),
                       ),
 
-                    SizedBox(height: 32.h),
+                    SizedBox(height: 20.h),
 
                     // second part of register screen
                     RegisterOptions(),
