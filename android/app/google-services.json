@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "987052766859",
+    "project_id": "anamel-8362d",
+    "storage_bucket": "anamel-8362d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987052766859:android:c63fd36d3363468705068e",
+        "android_client_info": {
+          "package_name": "com.waleed.anamel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "987052766859-mfqljqmtr23onjlh175c44s7gipdc907.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.waleed.anamel",
+            "certificate_hash": "fedac360a9d1257e3c72845eb80bd6f0e5ce47e0"
+          }
+        },
+        {
+          "client_id": "987052766859-dv0h06b8cnfok8a9259l60ds6n36d6v9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf23I5753v3fHxRZ6q2CauubHMPq6NVNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "987052766859-dv0h06b8cnfok8a9259l60ds6n36d6v9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "987052766859-o2g78f4aj0fj0ice9g7ague9boglvk21.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.waleed.anamel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
