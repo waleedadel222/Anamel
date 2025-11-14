@@ -6,6 +6,7 @@ class AppRouting {
   static const String forgotPassword = '/forgot_password';
   static const String createNewPassword = '/create_new_password';
   static const String settings = '/settings';
+  static const String onboarding = '/onboarding_screen';
 
 
   static const String home = '/home_screen';

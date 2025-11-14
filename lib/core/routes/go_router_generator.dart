@@ -1,11 +1,13 @@
-import 'package:anamel/screens/auth/forget_password/create_new_password.dart';
-import 'package:anamel/screens/auth/login/login_screen.dart';
-import 'package:anamel/screens/auth/register/register_screen.dart';
+import 'package:anamel/screens/auth/presentation/create_new_password.dart';
+import 'package:anamel/screens/onboarding_screen.dart';
+import 'package:anamel/screens/profile/profile_screen.dart';
 import 'package:anamel/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../screens/auth/forget_password/forget_password_screen.dart';
-import '../../screens/auth/verify/opt_verify.dart';
+import '../../screens/auth/presentation/forget_password_screen.dart';
+import '../../screens/auth/presentation/login/login_screen.dart';
+import '../../screens/auth/presentation/opt_verify.dart';
+import '../../screens/auth/presentation/register/register_screen.dart';
 import '../../screens/settings/app_settings_screen.dart';
 import 'app_routing.dart';
 
@@ -21,6 +23,13 @@ class GoRouterGenerator {
         name: AppRouting.splash,
         path: AppRouting.splash,
         builder: (context, state) => const SplashScreen(),
+      ),
+
+      // onboarding screen
+      GoRoute(
+        name: AppRouting.onboarding,
+        path: AppRouting.onboarding,
+        builder: (context, state) => const OnboardingScreen(),
       ),
 
       // login screen
@@ -58,7 +67,6 @@ class GoRouterGenerator {
         builder: (context, state) => const OptVerify(),
       ),
 
-
       // home screen
       GoRoute(
         name: AppRouting.home,
@@ -80,6 +88,13 @@ class GoRouterGenerator {
         name: AppRouting.categories,
         path: AppRouting.categories,
         builder: (context, state) => const SplashScreen(),
+      ),
+
+      // profile
+      GoRoute(
+        name: AppRouting.profile,
+        path: AppRouting.profile,
+        builder: (context, state) => const ProfileScreen(userData: {}),
       ),
 
       // setting

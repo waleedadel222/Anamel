@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../styling/app_colors.dart';
-
 class MainElevatedButton extends StatelessWidget {
   final String textOnButton;
   final double? textFontSize;
@@ -30,7 +28,7 @@ class MainElevatedButton extends StatelessWidget {
 
       style: ElevatedButton.styleFrom(
         // backgroundColor: AppColors.primaryColor,
-        padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 24.w),
+        // padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 10.r),
         ),
