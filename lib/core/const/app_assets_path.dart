@@ -1,9 +1,10 @@
 class AppAssetsPath {
+
   // app images
   static String anamelCoverImage = "assets/images/anamel_cover.svg";
-  static String onboardingImage_1 = "assets/images/onboarding_1.svg";
-  static String onboardingImage_2 = "assets/images/onboarding_2.svg";
-  static String onboardingImage_3 = "assets/images/onboarding_3.svg";
+  static String onboardingImage_1 = "assets/images/onboarding_1.png";
+  static String onboardingImage_2 = "assets/images/onboarding_2.png";
+  static String onboardingImage_3 = "assets/images/onboarding_3.png";
 
   // app icons
   static String googleIcon = "assets/icons/google_ic.svg";

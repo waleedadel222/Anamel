@@ -3,7 +3,6 @@ import 'package:anamel/core/routes/app_routing.dart';
 import 'package:anamel/core/styling/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -25,7 +24,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       "title": "Welcome to Anamel"
     },
     {
-      "image": AppAssetsPath.onboardingImage_3,
+      "image": AppAssetsPath.onboardingImage_2,
       "title": "Beautify your life with unique handmade products ",
     },
     {
@@ -57,21 +56,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Image.asset(item["image"]!, height: 280),
-                        SvgPicture.asset(
-                          item["image"]!,
-                          height: 250.h,
-                          width: 300.w,
-                        ),
+                        Image.asset(item["image"]!, height: 290.h),
+                        // SvgPicture.asset(
+                        //   item["image"]!,
+                        //   height: 250.h,
+                        //   width: 300.w,
+                        // ),
 
-                        SizedBox(height: 28.h),
+                        SizedBox(height: 24.h),
 
                         Text(
+                          textAlign: TextAlign.center,
                           item["title"]!,
                           style: AppStyles.logoTitleStyle.copyWith(
                             fontSize: 28.sp,
                           ),
                         ),
+
                         SizedBox(height: 28.h),
                       ],
                     ),
