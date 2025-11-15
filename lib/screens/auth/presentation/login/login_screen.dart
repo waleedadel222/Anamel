@@ -1,3 +1,4 @@
+
 import 'package:anamel/core/common_widgets/MainElevatedButton.dart';
 import 'package:anamel/core/common_widgets/TextFormFieldWidget.dart';
 import 'package:anamel/core/const/app_const.dart';
@@ -45,7 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
             child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
                 if (state is AuthSuccess) {
-
                   // ProfileScreen(userData: state.userData),
 
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -54,9 +54,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   // go to main screen
                   GoRouter.of(context).pushReplacementNamed(AppRouting.home);
                 } else if (state is AuthFailure) {
+
                   ScaffoldMessenger.of(
                     context,
-                  ).showSnackBar(SnackBar(content: Text(state.error)));
+                  ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
                 }
               },
 
@@ -68,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
 
                   children: [
-                    SizedBox(height: 100.h),
+                    SizedBox(height: 70.h),
 
                     // welcome text
                     Align(
@@ -107,7 +108,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: passwordController,
                       isObscureText: isObscurePassword,
                       prefixIcon: Icon(Icons.password),
-
                       suffixIcon: IconButton(
                         icon: Icon(
                           isObscurePassword
@@ -133,44 +133,43 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
 
-                    SizedBox(height: 16.h),
-
-                    // remember me check box
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Checkbox(
-                          value: isRememberMe,
-
-                          onChanged: (bool? newValue) {
-                            setState(() {
-                              isRememberMe = newValue ?? false;
-                            });
-                          },
-
-                          activeColor: Theme.of(context).colorScheme.primary,
-
-                          checkColor: Theme.of(context).colorScheme.secondary,
-
-                          side: BorderSide(
-                            color: Theme.of(context).colorScheme.secondary,
-                            width: 1.5,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.r),
-                          ),
-                        ),
-                        Text(
-                          "Remember me",
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 24.h),
+                    // SizedBox(height: 16.h),
+                    //
+                    // // remember me check box
+                    // Row(
+                    //   mainAxisSize: MainAxisSize.min,
+                    //   children: [
+                    //     Checkbox(
+                    //       value: isRememberMe,
+                    //
+                    //       onChanged: (bool? newValue) {
+                    //         setState(() {
+                    //           isRememberMe = newValue ?? false;
+                    //         });
+                    //       },
+                    //
+                    //       activeColor: Theme.of(context).colorScheme.primary,
+                    //
+                    //       checkColor: Theme.of(context).colorScheme.secondary,
+                    //
+                    //       side: BorderSide(
+                    //         color: Theme.of(context).colorScheme.secondary,
+                    //         width: 1.5,
+                    //       ),
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(4.r),
+                    //       ),
+                    //     ),
+                    //     Text(
+                    //       "Remember me",
+                    //       style: TextStyle(
+                    //         fontSize: 12.sp,
+                    //         color: Theme.of(context).colorScheme.onSurface,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    SizedBox(height: 32.h),
 
                     // Login Button
                     MainElevatedButton(
@@ -180,20 +179,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           ? null // disable button when loading
                           : () {
                               if (loginFormKey.currentState!.validate()) {
-                                // go to main screen
-                                // GoRouter.of(context).pushNamed(AppRouting.home);
 
                                 authBloc.add(
                                   LoginUser(
                                     emailController.text.trim(),
                                     passwordController.text.trim(),
-                                  ),
-                                );
-                              } else {
-                                //  Validation failed
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("something went wrong!"),
                                   ),
                                 );
                               }
@@ -209,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
 
-                    SizedBox(height: 24.h),
+                    SizedBox(height: 32.h),
 
                     Align(
                       alignment: Alignment.topRight,
@@ -231,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
 
-                    SizedBox(height: 16.h),
+                    SizedBox(height: 24.h),
 
                     // second part of the screen
                     LoginOptions(),

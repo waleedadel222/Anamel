@@ -6,17 +6,22 @@ class UserRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> createUserDocument(UserModel user) async {
-    await _firestore.collection("users").doc(user.uid).set(user.toMap());
-
+    try {
+      await _firestore.collection("users").doc(user.uid).set(user.toMap());
+    } catch (e) {
+      throw Exception((e.toString()));
+    }
   }
 
   Future<UserModel?> getUser(String uid) async {
-    final data =
-    await _firestore.collection("users").doc(uid).get();
-
-    if (data.exists) {
-      return UserModel.fromMap(data.data()!);
+    try {
+      final userDoc = await _firestore.collection("users").doc(uid).get();
+      if (userDoc.exists && userDoc.data() != null) {
+        return UserModel.fromMap(userDoc.data()!);
+      }
+      return null;
+    } catch (e) {
+      throw Exception((e.toString()));
     }
-    return null;
   }
 }
