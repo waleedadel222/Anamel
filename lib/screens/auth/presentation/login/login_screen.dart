@@ -1,6 +1,5 @@
-
-import 'package:anamel/core/common_widgets/MainElevatedButton.dart';
-import 'package:anamel/core/common_widgets/TextFormFieldWidget.dart';
+import 'package:anamel/core/common_widgets/main_elevated_button.dart';
+import 'package:anamel/core/common_widgets/text_form_field_widget.dart';
 import 'package:anamel/core/const/app_const.dart';
 import 'package:anamel/core/routes/app_routing.dart';
 import 'package:anamel/core/styling/app_styles.dart';
@@ -133,42 +132,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
 
-                    // SizedBox(height: 16.h),
-                    //
-                    // // remember me check box
-                    // Row(
-                    //   mainAxisSize: MainAxisSize.min,
-                    //   children: [
-                    //     Checkbox(
-                    //       value: isRememberMe,
-                    //
-                    //       onChanged: (bool? newValue) {
-                    //         setState(() {
-                    //           isRememberMe = newValue ?? false;
-                    //         });
-                    //       },
-                    //
-                    //       activeColor: Theme.of(context).colorScheme.primary,
-                    //
-                    //       checkColor: Theme.of(context).colorScheme.secondary,
-                    //
-                    //       side: BorderSide(
-                    //         color: Theme.of(context).colorScheme.secondary,
-                    //         width: 1.5,
-                    //       ),
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(4.r),
-                    //       ),
-                    //     ),
-                    //     Text(
-                    //       "Remember me",
-                    //       style: TextStyle(
-                    //         fontSize: 12.sp,
-                    //         color: Theme.of(context).colorScheme.onSurface,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                     SizedBox(height: 32.h),
 
                     // Login Button

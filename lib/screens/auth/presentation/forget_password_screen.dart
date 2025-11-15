@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/common_widgets/MainElevatedButton.dart';
-import '../../../core/common_widgets/TextFormFieldWidget.dart';
+import '../../../core/common_widgets/main_elevated_button.dart';
+import '../../../core/common_widgets/text_form_field_widget.dart';
 import '../../../core/const/app_const.dart';
 import '../../../core/routes/app_routing.dart';
 import '../../../core/styling/app_styles.dart';

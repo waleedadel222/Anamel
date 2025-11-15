@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/common_widgets/MainElevatedButton.dart';
-import '../../../core/common_widgets/TextFormFieldWidget.dart';
+import '../../../core/common_widgets/main_elevated_button.dart';
+import '../../../core/common_widgets/text_form_field_widget.dart';
 import '../../../core/routes/app_routing.dart';
 import '../../../core/styling/app_styles.dart';
 
@@ -61,16 +61,8 @@ class _CreateNewPassword extends State<CreateNewPassword> {
                     controller: passwordController,
                     isObscureText: isObscurePassword,
 
-
                     // lock icon
-                    prefixIcon: SvgPicture.asset(
-                      AppAssetsPath.passwordLockIcon,
-                      colorFilter: ColorFilter.mode(
-                        Theme.of(context).colorScheme.onSurface,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-
+                    prefixIcon: Icon(Icons.password),
 
                     // eye icons - open and close
                     suffixIcon: IconButton(
@@ -118,13 +110,7 @@ class _CreateNewPassword extends State<CreateNewPassword> {
                     hintText: "Confirm your Password",
                     controller: confirmPasswordController,
                     isObscureText: isObscureConformPassword,
-                    prefixIcon: SvgPicture.asset(
-                      AppAssetsPath.passwordLockIcon,
-                      colorFilter: ColorFilter.mode(
-                        Theme.of(context).colorScheme.onSurface,
-                        BlendMode.srcIn,
-                      ),
-                    ),
+                    prefixIcon: Icon(Icons.password),
 
                     suffixIcon: IconButton(
                       padding: EdgeInsets.symmetric(

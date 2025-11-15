@@ -57,11 +57,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(item["image"]!, height: 290.h),
-                        // SvgPicture.asset(
-                        //   item["image"]!,
-                        //   height: 250.h,
-                        //   width: 300.w,
-                        // ),
 
                         SizedBox(height: 24.h),
 
@@ -127,7 +122,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
 
-            SizedBox(height: 40.h),
+            SizedBox(height: 48.h),
           ],
         ),
       ),
