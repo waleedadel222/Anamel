@@ -1,5 +1,5 @@
-import 'package:anamel/core/common_widgets/MainElevatedButton.dart';
-import 'package:anamel/core/common_widgets/TextFormFieldWidget.dart';
+import 'package:anamel/core/common_widgets/main_elevated_button.dart';
+import 'package:anamel/core/common_widgets/text_form_field_widget.dart';
 import 'package:anamel/core/const/app_const.dart';
 import 'package:anamel/core/routes/app_routing.dart';
 import 'package:anamel/core/styling/app_styles.dart';
@@ -7,10 +7,8 @@ import 'package:anamel/screens/auth/presentation/register/register_options.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/const/app_assets_path.dart';
 import '../../domain/auth_bloc.dart';
 import '../../domain/auth_event.dart';
 import '../../domain/auth_state.dart';
@@ -49,8 +47,6 @@ class _RegisterScreen extends State<RegisterScreen> {
             child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
                 if (state is AuthSuccess) {
-                  // ProfileScreen(userData: state.userData);
-
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Register Successful')),
                   );
@@ -176,12 +172,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
-                        }
-                        // else if (!AppConst.isValidPassword(value)) {
-                        //   return "Password should has at least 8 characters,\n"
-                        //       "an uppercase letter,a lowercase letter,\n and a number";
-                        // }
-                        else if (value != passwordController.text.trim()) {
+                        } else if (value != passwordController.text.trim()) {
                           return 'Password does not match';
                         }
                         return null;
@@ -205,14 +196,6 @@ class _RegisterScreen extends State<RegisterScreen> {
                                   ),
                                 );
                               }
-                              // else {
-                              //   //  Validation failed
-                              //   ScaffoldMessenger.of(context).showSnackBar(
-                              //     const SnackBar(
-                              //       content: Text("something went wrong!"),
-                              //     ),
-                              //   );
-                              // }
                             },
                     ),
 

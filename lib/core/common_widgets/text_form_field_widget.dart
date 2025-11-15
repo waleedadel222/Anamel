@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class TextFormFieldWidget extends StatelessWidget {
   final String hintText;
   final double? width;
@@ -36,8 +35,6 @@ class TextFormFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // width: double.infinity,
-      // height: height ?? 80.h,
       child: TextFormField(
         keyboardType: textInputType,
         controller: controller,
@@ -54,12 +51,6 @@ class TextFormFieldWidget extends StatelessWidget {
             vertical: 14.h,
           ),
 
-          // hintText: hintText,
-          // hintStyle: TextStyle(
-          //   color: AppColors.primaryColor,
-          //   fontSize: fontSize ?? 14.sp,
-          //   fontWeight: fontWeight ?? FontWeight.w400,
-          // ),
           labelText: hintText,
           labelStyle: TextStyle(
             color: Theme.of(context).colorScheme.primary,
@@ -68,8 +59,6 @@ class TextFormFieldWidget extends StatelessWidget {
           ),
 
           filled: true,
-
-          // fillColor: AppColors.wightColor,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
             borderSide: BorderSide(

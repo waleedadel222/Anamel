@@ -16,14 +16,12 @@ class AppStyles {
     fontWeight: FontWeight.w500,
   );
 
-  //-------- rich text
   static TextStyle richTextStyle = TextStyle(
     fontFamily: AppFonts.primaryFont,
     fontSize: 14.sp,
     fontWeight: FontWeight.w600,
   );
 
-  //----------splash screen ----------
 
   static TextStyle logoTitleStyle = TextStyle(
     fontFamily: AppFonts.primaryFont,

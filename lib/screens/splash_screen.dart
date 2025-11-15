@@ -1,6 +1,7 @@
 import 'package:anamel/core/routes/app_routing.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../core/styling/app_styles.dart';
@@ -28,13 +29,16 @@ class _SplashScreenState extends State<SplashScreen> {
       if (isFirstTime) {
         prefs.setBool("is_first_time", false);
 
-        // go to onboarding screen
-        GoRouter.of(context).pushReplacement(AppRouting.onboarding);
+        _goToOnboarding();
       } else {
         // check user login status
         _checkUser();
       }
     });
+  }
+
+  void _goToOnboarding() {
+    GoRouter.of(context).pushReplacement(AppRouting.onboarding);
   }
 
   void _checkUser() {
@@ -49,23 +53,41 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            "Anamel",
-            style: AppStyles.logoTitleStyle.copyWith(
-              color: Theme.of(context).colorScheme.primary,
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+
+            // Image.asset("path"),
+
+            SizedBox(height: 4.h),
+
+            Text(
+              "Anamel",
+              style: AppStyles.logoTitleStyle.copyWith(
+                color: Theme
+                    .of(context)
+                    .colorScheme
+                    .primary,
+              ),
             ),
-          ),
-          Text(
-            "Made With Love ",
-            style: AppStyles.logoSubtitleStyle.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
+
+            SizedBox(height: 8.h),
+
+            Text(
+              "Made With Love ",
+              style: AppStyles.logoSubtitleStyle.copyWith(
+                color: Theme
+                    .of(context)
+                    .colorScheme
+                    .secondary,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
