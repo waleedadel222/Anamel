@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthFirebaseRepository {
-
   Future<User?> registerWithEmailAndPassword(
     String email,
     String password,
@@ -51,8 +50,16 @@ class AuthFirebaseRepository {
     return FirebaseAuth.instance.currentUser;
   }
 
-  Stream<User?> getUserState()  {
+  Stream<User?> getUserState() {
     return FirebaseAuth.instance.authStateChanges();
   }
 
+  Future<void> forgetPassword(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }
