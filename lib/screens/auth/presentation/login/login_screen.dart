@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SnackBar(content: Text('Login Successful')),
                   );
                   // go to main screen
-                  GoRouter.of(context).pushReplacementNamed(AppRouting.home);
+                  GoRouter.of(context).pushReplacementNamed(AppRouting.main);
                 } else if (state is AuthFailure) {
 
                   ScaffoldMessenger.of(

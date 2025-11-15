@@ -38,16 +38,16 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _goToOnboarding() {
-    GoRouter.of(context).pushReplacement(AppRouting.onboarding);
+    GoRouter.of(context).pushReplacementNamed(AppRouting.onboarding);
   }
 
   void _checkUser() {
     final user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      GoRouter.of(context).pushReplacement(AppRouting.home);
+      GoRouter.of(context).pushReplacementNamed(AppRouting.main);
     } else {
-      GoRouter.of(context).pushReplacement(AppRouting.login);
+      GoRouter.of(context).pushReplacementNamed(AppRouting.login);
     }
   }
 
