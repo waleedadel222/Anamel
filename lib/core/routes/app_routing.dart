@@ -10,6 +10,7 @@ class AppRouting {
   static const String createNewPassword = '/create_new_password';
   static const String settings = '/settings';
 
+  static const String main = '/main_screen';
   static const String home = '/home_screen';
   static const String cart = '/cart_screen';
   static const String profile = '/profile_screen';

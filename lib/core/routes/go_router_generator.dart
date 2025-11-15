@@ -1,6 +1,7 @@
 import 'package:anamel/screens/auth/presentation/create_new_password.dart';
+import 'package:anamel/screens/main/main_screen.dart';
 import 'package:anamel/screens/onboarding_screen.dart';
-import 'package:anamel/screens/profile/profile_screen.dart';
+import 'package:anamel/screens/main/profile_screen.dart';
 import 'package:anamel/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -67,6 +68,13 @@ class GoRouterGenerator {
         builder: (context, state) => const OptVerify(),
       ),
 
+      // main screen
+      GoRoute(
+        name: AppRouting.main,
+        path: AppRouting.main,
+        builder: (context, state) => const MainScreen(),
+      ),
+
       // home screen
       GoRoute(
         name: AppRouting.home,
@@ -94,7 +102,7 @@ class GoRouterGenerator {
       GoRoute(
         name: AppRouting.profile,
         path: AppRouting.profile,
-        builder: (context, state) => const ProfileScreen(userData: {}),
+        builder: (context, state) => const ProfileScreen(),
       ),
 
       // setting
