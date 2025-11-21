@@ -48,12 +48,9 @@ class UpdateUserProfile extends AuthEvent {
 }
 
 class DeleteUserAccount extends AuthEvent {
-  final String uid;
-
-  DeleteUserAccount(this.uid);
-
+  DeleteUserAccount();
   @override
-  List<Object?> get props => [uid];
+  List<Object?> get props => [];
 }
 
 class ForgotPasswordEvent extends AuthEvent {

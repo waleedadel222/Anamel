@@ -57,7 +57,19 @@ class AuthFirebaseRepository {
   Future<void> forgetPassword(String email) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 
+  Future<void> deleteAccount() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.delete();
+      } else {
+        throw Exception("User not found");
+      }
     } catch (e) {
       throw Exception(e.toString());
     }

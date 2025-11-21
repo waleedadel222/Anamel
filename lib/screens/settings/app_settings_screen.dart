@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/routes/app_routing.dart';
 import '../../core/styling/theme_notifier.dart';
+import '../auth/domain/auth_bloc.dart';
+import '../auth/domain/auth_state.dart';
 
 class AppSettingsScreen extends StatefulWidget {
   const AppSettingsScreen({super.key});
@@ -31,7 +35,6 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
-    // final currentMode = themeNotifier.themeMode;
 
     return Scaffold(
       appBar: AppBar(
@@ -140,48 +143,87 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
           ),
 
           // Delete Account
-          ListTile(
-            leading: Icon(Icons.delete_forever, color: Colors.red),
-            title: Text(
-              "Delete Account",
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
-            ),
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (_) => AlertDialog(
-                  icon: Icon(Icons.warning, color: Colors.red, size: 48),
-                  title: Text(
-                    "Confirm Delete",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  content: Text(
-                    "Are you sure you want to delete your account?\n This action cannot be undone.",
-                  ),
-                  actions: [
+          BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is DeleteAccountSuccess) {
 
-                    TextButton(
-                      onPressed: () => GoRouter.of(context).pop(),
-                      child: Text(
-                        "Cancel",
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Account deleted successfully."),
+                  ),
+                );
+                // Navigate to login screen
+                GoRouter.of(context).pushReplacementNamed(AppRouting.login);
+
+              } else if (state is AuthFailure) {
+
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              }
+            },
+            builder: (context, state) {
+
+              return ListTile(
+                leading: Icon(Icons.delete_forever, color: Colors.red),
+                title: Text(
+                  "Delete Account",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      icon: Icon(Icons.warning, color: Colors.red, size: 32),
+                      title: Text(
+                        "Confirm Delete",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        GoRouter.of(context).pop();
-                        // delete account function
-                      },
-                      child: const Text(
-                        "Delete",
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      content: Text(
+                        "Are you sure you want to delete your account?\n This action cannot be undone.",
                       ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => GoRouter.of(context).pop(),
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+
+                        TextButton(
+                          onPressed: () {
+                            // close dialog
+                            GoRouter.of(context).pop();
+
+                            // show loading dialog
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (_) => Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+
+                            // delete account function
+                      //      context.read<AuthBloc>().add(DeleteUserAccount());
+
+                          },
+                          child: const Text(
+                            "Delete",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                },
               );
             },
           ),
