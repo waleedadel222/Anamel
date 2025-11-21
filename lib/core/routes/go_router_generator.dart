@@ -105,7 +105,7 @@ class GoRouterGenerator {
         builder: (context, state) => const ProfileScreen(),
       ),
 
-      // setting
+      // settings
       GoRoute(
         name: AppRouting.settings,
         path: AppRouting.settings,

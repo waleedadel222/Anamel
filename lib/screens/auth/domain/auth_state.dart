@@ -35,3 +35,5 @@ class PasswordResetSuccess extends AuthState {
   final String message;
   PasswordResetSuccess(this.message);
 }
+
+class DeleteAccountSuccess extends AuthState {}
