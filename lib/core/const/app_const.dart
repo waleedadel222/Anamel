@@ -27,10 +27,8 @@ class AppConst {
     return regex.hasMatch(password);
   }
 
-
   static Future<void> clearUserData() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.clear();
-
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
   }
 }
