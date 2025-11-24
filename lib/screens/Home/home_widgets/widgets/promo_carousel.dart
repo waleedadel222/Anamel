@@ -1,8 +1,7 @@
-// lib/widgets/promo_carousel.dart
-import 'package:anamel_home_screen/models/card_model.dart';
-import 'package:anamel_home_screen/widgets/card_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:anamel/screens/Home/home_models/models/card_model.dart';
+import 'package:anamel/screens/home/home_widgets/widgets/card_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 
 class PromoCarousel extends StatelessWidget {
   const PromoCarousel({Key? key}) : super(key: key);

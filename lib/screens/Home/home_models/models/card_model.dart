@@ -1,7 +1,7 @@
 // promo_model.dart
 import 'dart:ui';
 
-import 'package:anamel_home_screen/util/app_assets.dart';
+import 'package:anamel/core/const/app_assets_path.dart';
 
 class PromoPage {
   final String id;
@@ -29,7 +29,7 @@ class PromoData {
       id: '1',
       discountText: '25% off',
       title: 'Monsoon Arrival',
-      imagePath: AppAssets.sofa,
+      imagePath: AppAssetsPath.sofa,
 
       description: '25% Off Every Order + No Cost EMI!',
       backgroundColor: Color(0xff5A5D5F).withOpacity(0.4),
@@ -39,7 +39,7 @@ class PromoData {
       id: '2',
       discountText: '30% off',
       title: 'Summer Sale',
-      imagePath: AppAssets.sofa,
+      imagePath: AppAssetsPath.sofa,
       description: '30% Off on All Products +Free Shipping!',
       backgroundColor: Color(0xff4A90E2).withOpacity(0.4),
       textColor: Color.fromARGB(255, 25, 67, 109),
@@ -48,10 +48,10 @@ class PromoData {
       id: '3',
       discountText: '40% off',
       title: 'Winter Collection',
-      imagePath: AppAssets.sofa,
+      imagePath: AppAssetsPath.sofa,
 
       description: '40% Off Winter Items + Cashback!',
-      backgroundColor: Color(0xff90EE90).withOpacity(0.4),
+      backgroundColor: Color(0xff90EE90).withAlpha(4),
       textColor: Color.fromARGB(255, 34, 85, 36),
     ),
   ];

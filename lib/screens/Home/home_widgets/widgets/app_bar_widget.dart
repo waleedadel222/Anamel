@@ -1,7 +1,6 @@
-// lib/widgets/app_bar_widget.dart
-import 'package:anamel_home_screen/widgets/search_widget.dart';
+import 'package:anamel/core/const/app_words.dart';
+import 'package:anamel/screens/home/home_widgets/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
-import '../util/app_words.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool showSearch;

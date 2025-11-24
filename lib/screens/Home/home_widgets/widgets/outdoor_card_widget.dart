@@ -1,6 +1,5 @@
-// product_card.dart
-import 'package:anamel_home_screen/models/outdoor_card_model.dart';
-import 'package:anamel_home_screen/util/app_styles.dart';
+import 'package:anamel/core/const/app_styles.dart';
+import 'package:anamel/screens/Home/home_models/models/outdoor_card_model.dart';
 import 'package:flutter/material.dart';
 
 class OutdoorCard extends StatelessWidget {

@@ -1,9 +1,9 @@
-import 'package:anamel_home_screen/services/Search_service/search_service.dart';
-import 'package:anamel_home_screen/widgets/home_content_widget.dart';
-import 'package:anamel_home_screen/widgets/search_widget.dart';
+import 'package:anamel/screens/home/home_service/services/Search_service/search_service.dart';
+import 'package:anamel/screens/home/home_widgets/widgets/home_content_widget.dart';
+import 'package:anamel/screens/home/home_widgets/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
-import '../widgets/app_bar_widget.dart';
-import '../widgets/promo_carousel.dart';
+import 'home_widgets/widgets/app_bar_widget.dart';
+import 'home_widgets/widgets/promo_carousel.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -1,5 +1,4 @@
-// promo_widget.dart
-import 'package:anamel_home_screen/models/card_model.dart';
+import 'package:anamel/screens/home/home_models/models/card_model.dart';
 import 'package:flutter/material.dart';
 
 class PromoPageWidget extends StatelessWidget {

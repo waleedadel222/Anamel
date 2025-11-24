@@ -1,4 +1,4 @@
-import 'package:anamel_home_screen/util/app_assets.dart';
+import 'package:anamel/core/const/app_assets_path.dart';
 
 class OutdoorCardModel {
   final String id;
@@ -27,7 +27,7 @@ class OutdoorCollectionData {
       title: "Modern Velvet Armchair",
       subtitle: "Customer Choice",
       price: "\$ 567.00",
-      imagePath: AppAssets.armchair,
+      imagePath: AppAssetsPath.armchair,
       rating: 4.8,
       tag: "Best Seller",
     ),
@@ -45,7 +45,7 @@ class OutdoorCollectionData {
       title: "Leather Sofa Set",
       subtitle: "Premium Choice",
       price: "\$ 599.00",
-      imagePath: AppAssets.armchair,
+      imagePath: AppAssetsPath.armchair,
       rating: 4.9,
       tag: "Hot",
     ),

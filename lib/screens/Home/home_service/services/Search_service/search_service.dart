@@ -1,5 +1,5 @@
-import 'package:anamel_home_screen/models/outdoor_card_model.dart';
-import 'package:anamel_home_screen/models/top_salling_card_model.dart';
+import 'package:anamel/screens/Home/home_models/models/outdoor_card_model.dart';
+import 'package:anamel/screens/Home/home_models/models/top_salling_card_model.dart';
 
 class SearchService {
   static List<dynamic> searchProducts(String query, List<dynamic> allProducts) {

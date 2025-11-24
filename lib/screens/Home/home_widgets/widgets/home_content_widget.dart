@@ -1,11 +1,11 @@
-// lib/widgets/home_content.dart
-import 'package:anamel_home_screen/models/top_salling_card_model.dart';
-import 'package:anamel_home_screen/widgets/top_salling_card_widget.dart';
+import 'package:anamel/core/const/app_color.dart';
+import 'package:anamel/core/const/app_styles.dart';
+import 'package:anamel/screens/home/home_models/models/top_salling_card_model.dart';
+import 'package:anamel/screens/home/home_widgets/widgets/top_salling_card_widget.dart';
 import 'package:flutter/material.dart';
-import '../util/app_styles.dart';
-import '../util/app_color.dart';
+
 import 'outdoor_card_widget.dart';
-import '../models/outdoor_card_model.dart';
+import '../../home_models/models/outdoor_card_model.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({Key? key}) : super(key: key);

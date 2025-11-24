@@ -1,4 +1,4 @@
-import 'package:anamel_home_screen/util/app_assets.dart';
+import 'package:anamel/core/const/app_assets_path.dart';
 
 class TopSallingCardModel {
   final String id;
@@ -26,8 +26,8 @@ class ProductData {
       id: '1',
       title: "Modern handMade",
       subtitle: "Customer Choice",
-      price: "\$ 237.00",
-      imagePath: AppAssets.handmade,
+      price: "\$ 333",
+      imagePath: AppAssetsPath.handmade,
       rating: 4.8,
       tag: "Best Seller",
     ),
@@ -36,7 +36,7 @@ class ProductData {
       title: "macrame assortment indoors",
       subtitle: "Popular Item",
       price: "\$ 189.00",
-      imagePath: AppAssets.macrame,
+      imagePath: AppAssetsPath.macrame,
       rating: 4.6,
       tag: "New",
     ),
