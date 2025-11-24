@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
             darkTheme: AppThemes.darkTheme,
             themeMode: Provider.of<ThemeNotifier>(context).themeMode,
             routerConfig: GoRouterGenerator.mainRouter,
+            debugShowCheckedModeBanner: false,
           );
         },
       ),

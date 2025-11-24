@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/routes/app_routing.dart';
-import '../../core/styling/theme_notifier.dart';
-import '../auth/domain/auth_bloc.dart';
-import '../auth/domain/auth_state.dart';
+import '../core/routes/app_routing.dart';
+import '../core/styling/theme_notifier.dart';
+import 'auth/domain/auth_bloc.dart';
+import 'auth/domain/auth_event.dart';
+import 'auth/domain/auth_state.dart';
 
 class AppSettingsScreen extends StatefulWidget {
   const AppSettingsScreen({super.key});
@@ -35,6 +37,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+    isDarkMode = themeNotifier.themeMode == ThemeMode.dark;
 
     return Scaffold(
       appBar: AppBar(
@@ -99,6 +102,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
               "Legal Information",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
+            trailing: Icon(Icons.arrow_right),
             leading: Icon(Icons.info),
             onTap: () {
               // dialog with legal info
@@ -130,6 +134,16 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
             ),
             leading: Icon(Icons.mail),
             subtitle: Text("support@Anamel.com"),
+            onLongPress: () {
+              // copy email to clipboard
+              Clipboard.setData(ClipboardData(text: "support@Anamel.com")).then(
+                (_) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Support email copied")),
+                  );
+                },
+              );
+            },
           ),
 
           // App Version
@@ -146,7 +160,6 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
           BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state is DeleteAccountSuccess) {
-
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text("Account deleted successfully."),
@@ -154,16 +167,13 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 );
                 // Navigate to login screen
                 GoRouter.of(context).pushReplacementNamed(AppRouting.login);
-
               } else if (state is AuthFailure) {
-
                 ScaffoldMessenger.of(
                   context,
                 ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
               }
             },
             builder: (context, state) {
-
               return ListTile(
                 leading: Icon(Icons.delete_forever, color: Colors.red),
                 title: Text(
@@ -203,14 +213,12 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                             showDialog(
                               barrierDismissible: false,
                               context: context,
-                              builder: (_) => Center(
-                                child: CircularProgressIndicator(),
-                              ),
+                              builder: (_) =>
+                                  Center(child: CircularProgressIndicator()),
                             );
 
                             // delete account function
-                      //      context.read<AuthBloc>().add(DeleteUserAccount());
-
+                            context.read<AuthBloc>().add(DeleteUserAccount());
                           },
                           child: const Text(
                             "Delete",
