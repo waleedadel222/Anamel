@@ -81,6 +81,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 item["subtitle"]!,
                                 textAlign: TextAlign.start,
                                 style: AppStyles.logoSubtitleStyle,
+
                               ),
                             ],
                           ),
