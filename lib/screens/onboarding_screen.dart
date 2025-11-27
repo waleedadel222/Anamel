@@ -58,10 +58,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                       return Center(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          padding:  EdgeInsets.symmetric(horizontal: 20.w),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Image.asset(
                                 item["image"]!,
@@ -71,7 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               SizedBox(height: 24.h),
                               Text(
                                 item["title"]!,
-                                textAlign: TextAlign.left,
+                                textAlign: TextAlign.start,
                                 style: AppStyles.logoTitleStyle.copyWith(
                                   fontSize: 22.sp,
                                 ),
@@ -79,7 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               SizedBox(height: 10.h),
                               Text(
                                 item["subtitle"]!,
-                                textAlign: TextAlign.left,
+                                textAlign: TextAlign.start,
                                 style: AppStyles.logoSubtitleStyle,
                               ),
                             ],
@@ -90,17 +90,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
 
-                SizedBox(height: 24.h),
+                // SizedBox(height: 5.h),
 
                 // Expanding Dots
                 SmoothPageIndicator(
                   controller: _controller,
                   count: onboardingItems.length,
                   effect: ExpandingDotsEffect(
-                    dotHeight: 12,
-                    dotWidth: 12,
+                    dotHeight: 11,
+                    dotWidth: 11,
                     expansionFactor: 3,
-                    spacing: 6,
+                    spacing: 5,
                     activeDotColor: Theme.of(context).colorScheme.primary,
                   ),
                 ),
@@ -122,8 +122,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: AnimatedContainer(
                     padding: EdgeInsets.all(10),
                     duration: Duration(milliseconds: 300),
-                    height: 60,
-                    width: 300,
+                    height: 50.h,
+                    width: 280.w,
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(16),
@@ -140,7 +140,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
 
-                SizedBox(height: 40.h),
+                 SizedBox(height: 120.h),
               ],
             ),
 
