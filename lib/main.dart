@@ -80,7 +80,6 @@ class MyApp extends StatelessWidget {
             darkTheme: AppThemes.darkTheme,
             themeMode: Provider.of<ThemeNotifier>(context).themeMode,
             routerConfig: GoRouterGenerator.generateRouter(initialRoute),
-            routerConfig: GoRouterGenerator.mainRouter,
             debugShowCheckedModeBanner: false,
           );
         },

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../screens/address/model/address_model.dart';
 import '../../screens/address/presentation/add_new_address.dart';
+import '../../screens/address/presentation/addresses_screen.dart';
 import '../../screens/auth/presentation/forget_password_screen.dart';
 import '../../screens/auth/presentation/login/login_screen.dart';
 import '../../screens/auth/presentation/opt_verify.dart';
@@ -36,12 +37,12 @@ class GoRouterGenerator {
           path: AppRouting.onboarding,
           builder: (context, state) => const OnboardingScreen(),
         ),
-      // onboarding screen
-      GoRoute(
-        name: AppRouting.onboarding,
-        path: AppRouting.onboarding,
-        builder: (context, state) => OnboardingScreen(),
-      ),
+        // onboarding screen
+        GoRoute(
+          name: AppRouting.onboarding,
+          path: AppRouting.onboarding,
+          builder: (context, state) => OnboardingScreen(),
+        ),
 
         // login screen
         GoRoute(
@@ -49,119 +50,119 @@ class GoRouterGenerator {
           path: AppRouting.login,
           builder: (context, state) => const LoginScreen(),
         ),
-      // login screen
-      GoRoute(
-        name: AppRouting.login,
-        path: AppRouting.login,
-        builder: (context, state) => LoginScreen(),
-      ),
+        // login screen
+        GoRoute(
+          name: AppRouting.login,
+          path: AppRouting.login,
+          builder: (context, state) => LoginScreen(),
+        ),
 
-      // register screen
-      GoRoute(
-        name: AppRouting.register,
-        path: AppRouting.register,
-        builder: (context, state) => RegisterScreen(),
-      ),
+        // register screen
+        GoRoute(
+          name: AppRouting.register,
+          path: AppRouting.register,
+          builder: (context, state) => RegisterScreen(),
+        ),
 
-      // forgot Password screen
-      GoRoute(
-        name: AppRouting.forgotPassword,
-        path: AppRouting.forgotPassword,
-        builder: (context, state) => ForgetPasswordScreen(),
-      ),
+        // forgot Password screen
+        GoRoute(
+          name: AppRouting.forgotPassword,
+          path: AppRouting.forgotPassword,
+          builder: (context, state) => ForgetPasswordScreen(),
+        ),
 
-      // New Password screen
-      GoRoute(
-        name: AppRouting.createNewPassword,
-        path: AppRouting.createNewPassword,
-        builder: (context, state) => CreateNewPassword(),
-      ),
+        // New Password screen
+        GoRoute(
+          name: AppRouting.createNewPassword,
+          path: AppRouting.createNewPassword,
+          builder: (context, state) => CreateNewPassword(),
+        ),
 
-      // OptVerify screen
-      GoRoute(
-        name: AppRouting.otpVerification,
-        path: AppRouting.otpVerification,
-        builder: (context, state) => OptVerify(),
-      ),
+        // OptVerify screen
+        GoRoute(
+          name: AppRouting.otpVerification,
+          path: AppRouting.otpVerification,
+          builder: (context, state) => OptVerify(),
+        ),
 
-      // main screen
-      GoRoute(
-        name: AppRouting.main,
-        path: AppRouting.main,
-        builder: (context, state) => MainScreen(),
-      ),
+        // main screen
+        GoRoute(
+          name: AppRouting.main,
+          path: AppRouting.main,
+          builder: (context, state) => MainScreen(),
+        ),
 
-      // home screen
-      GoRoute(
-        name: AppRouting.home,
-        path: AppRouting.home,
-        builder: (context, state) => SplashScreen(),
-      ),
+        // home screen
+        GoRoute(
+          name: AppRouting.home,
+          path: AppRouting.home,
+          builder: (context, state) => Placeholder(),
+        ),
 
-      // cart
-      GoRoute(
-        name: AppRouting.cart,
-        path: AppRouting.cart,
-        builder: (context, state) =>
-            // CartScreen(productId: 22, productName:  state.extra as String),
-            SplashScreen(),
-      ),
+        // cart
+        GoRoute(
+          name: AppRouting.cart,
+          path: AppRouting.cart,
+          builder: (context, state) =>
+              // CartScreen(productId: 22, productName:  state.extra as String),
+              Placeholder(),
+        ),
 
-      // category
-      GoRoute(
-        name: AppRouting.categories,
-        path: AppRouting.categories,
-        builder: (context, state) => SplashScreen(),
-      ),
+        // category
+        GoRoute(
+          name: AppRouting.categories,
+          path: AppRouting.categories,
+          builder: (context, state) => Placeholder(),
+        ),
 
-      // profile
-      GoRoute(
-        name: AppRouting.profile,
-        path: AppRouting.profile,
-        builder: (context, state) => ProfileScreen(),
-      ),
+        // profile
+        GoRoute(
+          name: AppRouting.profile,
+          path: AppRouting.profile,
+          builder: (context, state) => ProfileScreen(),
+        ),
 
-      // settings
-      GoRoute(
-        name: AppRouting.settings,
-        path: AppRouting.settings,
-        builder: (context, state) => AppSettingsScreen(),
-      ),
+        // settings
+        GoRoute(
+          name: AppRouting.settings,
+          path: AppRouting.settings,
+          builder: (context, state) => AppSettingsScreen(),
+        ),
 
-      // order history
-      GoRoute(
-        name: AppRouting.orderHistory,
-        path: AppRouting.orderHistory,
-        builder: (context, state) => OrderHistory(),
-      ),
+        // order history
+        GoRoute(
+          name: AppRouting.orderHistory,
+          path: AppRouting.orderHistory,
+          builder: (context, state) => OrderHistory(),
+        ),
 
-      // addresses
-      GoRoute(
-        name: AppRouting.addresses,
-        path: AppRouting.addresses,
-        builder: (context, state) => AddressesScreen(),
-      ),
+        // addresses
+        GoRoute(
+          name: AppRouting.addresses,
+          path: AppRouting.addresses,
+          builder: (context, state) => AddressesScreen(),
+        ),
 
-      // add edit address
-      GoRoute(
-        name: AppRouting.addEditAddress,
-        path: AppRouting.addEditAddress,
-        builder: (context, state) {
+        // add edit address
+        GoRoute(
+          name: AppRouting.addEditAddress,
+          path: AppRouting.addEditAddress,
+          builder: (context, state) {
+            final extra = state.extra as Map<String, dynamic>?;
 
-          final extra = state.extra as Map<String, dynamic>?;
-
-          if (extra != null) {
-            // Edit mode
-            return AddNewAddress(
-              address: extra['address'] as AddressModel,
-              index: extra['index'] as int,
-            );
-          } else {
-            // Add mode
-            return const AddNewAddress();
-          }
-        },
-      ),
-    ],
-  );
+            if (extra != null) {
+              // Edit mode
+              return AddNewAddress(
+                address: extra['address'] as AddressModel,
+                index: extra['index'] as int,
+              );
+            } else {
+              // Add mode
+              return const AddNewAddress();
+            }
+          },
+        ),
+      ],
+    );
+  }
 }
