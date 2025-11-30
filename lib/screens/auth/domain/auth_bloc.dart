@@ -102,10 +102,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     }
 
-    onLogout(event, emit) async {
-      await authFirebaseRepo.logout();
-      emit(AuthLogOut());
-    }
+    on<LogoutUser>((event, emit) async {
+      try {
+        // 1- Logout from Firebase Authentication
+        await authFirebaseRepo.logout();
+
+        // 2- Clear any cached user data
+        await AppConst.clearUserData();
+
+        emit(AuthLogOutSuccess());
+      } catch (e) {
+        emit(AuthFailure(e.toString()));
+      }
+    });
 
     on<DeleteUserAccount>((event, emit) async {
       emit(AuthLoading());

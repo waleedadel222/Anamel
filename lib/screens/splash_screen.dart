@@ -18,7 +18,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    _checkFirstTime();
+    // _checkFirstTime();
+    GoRouter.of(context).pushReplacementNamed(AppRouting.main);
+
   }
 
   void _checkFirstTime() {
