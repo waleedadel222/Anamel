@@ -20,8 +20,8 @@ import 'core/routes/app_routing.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  final initialRoute = await _getInitialRoute();
+  final initialRoute = AppRouting.categories;
+  // final initialRoute = await _getInitialRoute();
 
   runApp(
     ChangeNotifierProvider(
@@ -87,3 +87,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+//aaaaaa
