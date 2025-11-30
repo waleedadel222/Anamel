@@ -1,4 +1,4 @@
-import 'package:anamel/screens/address/addresses_screen.dart';
+import 'package:anamel/screens/address/presentation/addresses_screen.dart';
 import 'package:anamel/screens/create_new_password.dart';
 import 'package:anamel/screens/main/main_screen.dart';
 import 'package:anamel/screens/onboarding_screen.dart';
@@ -7,7 +7,8 @@ import 'package:anamel/screens/order_history.dart';
 import 'package:anamel/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../screens/address/add_new_address.dart';
+import '../../screens/address/model/address_model.dart';
+import '../../screens/address/presentation/add_new_address.dart';
 import '../../screens/auth/presentation/forget_password_screen.dart';
 import '../../screens/auth/presentation/login/login_screen.dart';
 import '../../screens/auth/presentation/opt_verify.dart';
@@ -129,11 +130,25 @@ class GoRouterGenerator {
         builder: (context, state) => AddressesScreen(),
       ),
 
-      // new address
+      // add edit address
       GoRoute(
-        name: AppRouting.addAddress,
-        path: AppRouting.addAddress,
-        builder: (context, state) => AddNewAddress(),
+        name: AppRouting.addEditAddress,
+        path: AppRouting.addEditAddress,
+        builder: (context, state) {
+
+          final extra = state.extra as Map<String, dynamic>?;
+
+          if (extra != null) {
+            // Edit mode
+            return AddNewAddress(
+              address: extra['address'] as AddressModel,
+              index: extra['index'] as int,
+            );
+          } else {
+            // Add mode
+            return const AddNewAddress();
+          }
+        },
       ),
     ],
   );

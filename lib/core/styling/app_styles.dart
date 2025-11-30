@@ -40,4 +40,22 @@ class AppStyles {
     fontSize: 22.sp,
     fontWeight: FontWeight.bold,
   );
+
+  static TextStyle text18BoldStyle = TextStyle(
+    fontFamily: AppFonts.primaryFont,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle text14BoldStyle = TextStyle(
+    fontFamily: AppFonts.primaryFont,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle text16NormalStyle = TextStyle(
+    fontFamily: AppFonts.primaryFont,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.normal,
+  );
 }

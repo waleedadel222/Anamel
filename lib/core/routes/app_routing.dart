@@ -17,7 +17,7 @@ class AppRouting {
   static const String createNewPassword = '/create_new_password';
   static const String orderHistory = '/order_history';
   static const String addresses = '/Addresses';
-  static const String addAddress = '/add_address';
+  static const String addEditAddress = '/add_edit_address';
 
 
 
