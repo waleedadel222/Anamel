@@ -1,5 +1,5 @@
 class AppRouting {
-  static const String splash = "/splash_screen";
+  // static const String splash = "/splash_screen";
   static const String login = '/login';
   static const String register = '/register';
   static const String otpVerification = '/otp_verification';

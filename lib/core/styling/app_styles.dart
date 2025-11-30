@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'app_fonts.dart';
 
 class AppStyles {
@@ -24,15 +23,16 @@ class AppStyles {
 
 
   static TextStyle logoTitleStyle = TextStyle(
-    fontFamily: AppFonts.primaryFont,
+    fontFamily: AppFonts.secondaryFont,
     fontSize: 24.sp,
     fontWeight: FontWeight.bold,
   );
   static TextStyle logoSubtitleStyle = TextStyle(
-    fontFamily: AppFonts.primaryFont,
-    fontSize: 16.sp,
-    fontWeight: FontWeight.bold,
+    fontFamily: AppFonts.secondaryFont,
+    fontSize: 15.sp,
+    fontWeight: FontWeight.w300
   );
+
 
   //-------- pin code
   static TextStyle pinCodeStyle = TextStyle(

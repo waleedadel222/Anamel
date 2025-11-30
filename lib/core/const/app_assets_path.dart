@@ -9,4 +9,5 @@ class AppAssetsPath {
   static String googleIcon = "assets/icons/google_ic.svg";
   static String passwordOpenEyeIcon = "assets/icons/eye_open_ic.svg";
   static String passwordCloseEyeIcon = "assets/icons/eye_close_ic.svg";
+  static String splashLogo = "assets/lotties/lottie_splash.json";
 }
