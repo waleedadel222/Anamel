@@ -36,12 +36,6 @@ class GoRouterGenerator {
           path: AppRouting.onboarding,
           builder: (context, state) => const OnboardingScreen(),
         ),
-        // onboarding screen
-        GoRoute(
-          name: AppRouting.onboarding,
-          path: AppRouting.onboarding,
-          builder: (context, state) => OnboardingScreen(),
-        ),
 
         // login screen
         GoRoute(
@@ -49,12 +43,7 @@ class GoRouterGenerator {
           path: AppRouting.login,
           builder: (context, state) => const LoginScreen(),
         ),
-        // login screen
-        GoRoute(
-          name: AppRouting.login,
-          path: AppRouting.login,
-          builder: (context, state) => LoginScreen(),
-        ),
+
 
         // register screen
         GoRoute(

@@ -72,8 +72,8 @@ class MyApp extends StatelessWidget {
         // BlocProvider<AuthBloc>(create: (context) => AuthBloc(authRepository)),
       ],
       child: ScreenUtilInit(
-        designSize: const Size(375, 812),
-        builder: (_, __) {
+        designSize: Size(375, 812),
+        builder: (context, child) {
           return MaterialApp.router(
             title: "Anamel",
             theme: AppThemes.lightTheme,
