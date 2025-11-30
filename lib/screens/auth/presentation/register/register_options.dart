@@ -19,7 +19,7 @@ class RegisterOptions extends StatelessWidget {
         //---------- or register with------------
         DividerLine(title: "Or Register with"),
 
-        SizedBox(height: 16.h),
+        SizedBox(height: 24.h),
 
         // Google Button
         GoogleButton(textOnButton: "Register with Google", onButtonTap: () {}),

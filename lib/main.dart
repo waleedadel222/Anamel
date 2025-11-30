@@ -1,3 +1,5 @@
+import 'package:anamel/screens/address/address_repository/address_repository.dart';
+import 'package:anamel/screens/address/domain/address_bloc.dart';
 import 'package:anamel/screens/auth/data/repository/auth_firebase_repository.dart';
 import 'package:anamel/screens/auth/data/repository/user_repository.dart';
 import 'package:anamel/screens/auth/domain/auth_bloc.dart';
@@ -63,6 +65,11 @@ class MyApp extends StatelessWidget {
             userRepo: UserRepository(),
           ),
         ),
+        BlocProvider<AddressBloc>(
+          create: (context) => AddressBloc(repository: AddressRepository()),
+        ),
+
+        // BlocProvider<AuthBloc>(create: (context) => AuthBloc(authRepository)),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
@@ -73,6 +80,8 @@ class MyApp extends StatelessWidget {
             darkTheme: AppThemes.darkTheme,
             themeMode: Provider.of<ThemeNotifier>(context).themeMode,
             routerConfig: GoRouterGenerator.generateRouter(initialRoute),
+            routerConfig: GoRouterGenerator.mainRouter,
+            debugShowCheckedModeBanner: false,
           );
         },
       ),

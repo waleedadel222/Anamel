@@ -1,12 +1,16 @@
+import 'package:anamel/screens/auth/domain/auth_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/common_widgets/MainElevatedButton.dart';
-import '../../../core/common_widgets/TextFormFieldWidget.dart';
+import '../../../core/common_widgets/main_elevated_button.dart';
+import '../../../core/common_widgets/text_form_field_widget.dart';
 import '../../../core/const/app_const.dart';
 import '../../../core/routes/app_routing.dart';
 import '../../../core/styling/app_styles.dart';
+import '../domain/auth_bloc.dart';
+import '../domain/auth_state.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -16,6 +20,10 @@ class ForgetPasswordScreen extends StatefulWidget {
 }
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+  void goToLoginScreen() {
+    GoRouter.of(context).pushReplacementNamed(AppRouting.login);
+  }
+
   @override
   Widget build(BuildContext context) {
     final forgetFormKey = GlobalKey<FormState>();
@@ -28,20 +36,35 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            GoRouter.of(context).pushReplacementNamed(AppRouting.login);
+            goToLoginScreen();
           },
         ),
       ),
 
-      body: Form(
-        key: forgetFormKey,
-        autovalidateMode: AutovalidateMode.onUnfocus,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
-          child: Center(
-            child: SingleChildScrollView(
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is PasswordResetSuccess) {
+              // go back to login screen
+              goToLoginScreen();
+
+              // show success message
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
+            } else if (state is AuthFailure) {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+            }
+          },
+          builder: (context, state) {
+            return Form(
+              key: forgetFormKey,
+              autovalidateMode: AutovalidateMode.onUnfocus,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   // forget title text
@@ -81,25 +104,20 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
                   // send code Button
                   MainElevatedButton(
-                    textOnButton: "Send Code",
+                    textOnButton: "Send Link",
                     onButtonTap: () {
                       if (forgetFormKey.currentState!.validate()) {
                         // function to send code to the email
-                        // then navigate to verify screen
-                      } else {
-                        //  Validation failed
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("something went wrong!"),
-                          ),
+                        context.read<AuthBloc>().add(
+                          ForgotPasswordEvent(emailController.text.trim()),
                         );
                       }
                     },
                   ),
                 ],
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );

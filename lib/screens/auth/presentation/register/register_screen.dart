@@ -1,5 +1,5 @@
-import 'package:anamel/core/common_widgets/MainElevatedButton.dart';
-import 'package:anamel/core/common_widgets/TextFormFieldWidget.dart';
+import 'package:anamel/core/common_widgets/main_elevated_button.dart';
+import 'package:anamel/core/common_widgets/text_form_field_widget.dart';
 import 'package:anamel/core/const/app_const.dart';
 import 'package:anamel/core/routes/app_routing.dart';
 import 'package:anamel/core/styling/app_styles.dart';
@@ -7,14 +7,11 @@ import 'package:anamel/screens/auth/presentation/register/register_options.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/const/app_assets_path.dart';
 import '../../domain/auth_bloc.dart';
 import '../../domain/auth_event.dart';
 import '../../domain/auth_state.dart';
-
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -50,19 +47,15 @@ class _RegisterScreen extends State<RegisterScreen> {
             child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
                 if (state is AuthSuccess) {
-
-                  // ProfileScreen(userData: state.userData);
-
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Register Successful')),
                   );
                   // go to main screen
-                  GoRouter.of(context).pushReplacementNamed(AppRouting.home);
-
+                  GoRouter.of(context).pushReplacementNamed(AppRouting.main);
                 } else if (state is AuthFailure) {
                   ScaffoldMessenger.of(
                     context,
-                  ).showSnackBar(SnackBar(content: Text(state.error)));
+                  ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
                 }
               },
 
@@ -74,7 +67,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
 
                   children: [
-                    SizedBox(height: 100.h),
+                    SizedBox(height: 70.h),
 
                     // Join text
                     Align(
@@ -85,7 +78,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       ),
                     ),
 
-                    SizedBox(height: 64.h),
+                    SizedBox(height: 48.h),
 
                     // username text field
                     TextFormFieldWidget(
@@ -101,7 +94,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                     ),
 
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 20.h),
 
                     // email text field
                     TextFormFieldWidget(
@@ -119,18 +112,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                     ),
 
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 20.h),
 
                     // Password text field
                     TextFormFieldWidget(
                       hintText: "Password",
                       controller: passwordController,
                       isObscureText: isObscurePassword,
-                      prefixIcon: SvgPicture.asset(
-                        AppAssetsPath.passwordLockIcon,
-                        // height: 12.h,
-                        // width: 12.w,
-                      ),
+                      prefixIcon: Icon(Icons.password),
 
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -157,19 +146,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                     ),
 
-                    SizedBox(height: 32.h),
+                    SizedBox(height: 20.h),
 
                     // confirm Password text field
                     TextFormFieldWidget(
                       hintText: "Confirm Password",
                       controller: confirmPasswordController,
                       isObscureText: isObscureConformPassword,
-                      prefixIcon: SvgPicture.asset(
-                        AppAssetsPath.passwordLockIcon,
-                        // height: 12.h,
-                        // width: 12.w,
-                      ),
-
+                      prefixIcon: Icon(Icons.password),
                       suffixIcon: IconButton(
                         icon: Icon(
                           isObscureConformPassword
@@ -188,19 +172,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
-                        }
-                        // else if (!AppConst.isValidPassword(value)) {
-                        //   return "Password should has at least 8 characters,\n"
-                        //       "an uppercase letter,a lowercase letter,\n and a number";
-                        // }
-                        else if (value != passwordController.text.trim()) {
+                        } else if (value != passwordController.text.trim()) {
                           return 'Password does not match';
                         }
                         return null;
                       },
                     ),
 
-                    SizedBox(height: 32.h),
+                    SizedBox(height: 20.h),
 
                     // register Button
                     MainElevatedButton(
@@ -216,13 +195,6 @@ class _RegisterScreen extends State<RegisterScreen> {
                                     passwordController.text.trim(),
                                   ),
                                 );
-                              } else {
-                                //  Validation failed
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("something went wrong!"),
-                                  ),
-                                );
                               }
                             },
                     ),
@@ -236,7 +208,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         ),
                       ),
 
-                    SizedBox(height: 32.h),
+                    SizedBox(height: 20.h),
 
                     // second part of register screen
                     RegisterOptions(),

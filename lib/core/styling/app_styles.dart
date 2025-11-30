@@ -15,14 +15,12 @@ class AppStyles {
     fontWeight: FontWeight.w500,
   );
 
-  //-------- rich text
   static TextStyle richTextStyle = TextStyle(
     fontFamily: AppFonts.primaryFont,
     fontSize: 14.sp,
     fontWeight: FontWeight.w600,
   );
 
-  //----------splash screen ----------
 
   static TextStyle logoTitleStyle = TextStyle(
     fontFamily: AppFonts.secondaryFont,
@@ -41,5 +39,23 @@ class AppStyles {
     fontFamily: AppFonts.primaryFont,
     fontSize: 22.sp,
     fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle text18BoldStyle = TextStyle(
+    fontFamily: AppFonts.primaryFont,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle text14BoldStyle = TextStyle(
+    fontFamily: AppFonts.primaryFont,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle text16NormalStyle = TextStyle(
+    fontFamily: AppFonts.primaryFont,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.normal,
   );
 }

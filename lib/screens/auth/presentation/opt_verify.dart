@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../../../core/common_widgets/MainElevatedButton.dart';
+import '../../../core/common_widgets/main_elevated_button.dart';
 
 import '../../../core/routes/app_routing.dart';
 import '../../../core/styling/app_styles.dart';

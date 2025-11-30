@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 class AppConst {
   static String mode = "light"; // values are light and dark
 
@@ -23,5 +25,12 @@ class AppConst {
 
     // return true when password is valid
     return regex.hasMatch(password);
+  }
+
+
+  static Future<void> clearUserData() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
+
   }
 }

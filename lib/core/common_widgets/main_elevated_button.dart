@@ -27,8 +27,6 @@ class MainElevatedButton extends StatelessWidget {
       onPressed: onButtonTap as Function()?,
 
       style: ElevatedButton.styleFrom(
-        // backgroundColor: AppColors.primaryColor,
-        // padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 10.r),
         ),
