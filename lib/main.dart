@@ -3,6 +3,7 @@ import 'package:anamel/screens/address/domain/address_bloc.dart';
 import 'package:anamel/screens/auth/data/repository/auth_firebase_repository.dart';
 import 'package:anamel/screens/auth/data/repository/user_repository.dart';
 import 'package:anamel/screens/auth/domain/auth_bloc.dart';
+import 'package:anamel/screens/main/category/domain/cubit/category_cubit_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,7 +69,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<AddressBloc>(
           create: (context) => AddressBloc(repository: AddressRepository()),
         ),
-
+        BlocProvider<CategoryCubitCubit>(
+          create: (context) => CategoryCubitCubit(),
+        ),
         // BlocProvider<AuthBloc>(create: (context) => AuthBloc(authRepository)),
       ],
       child: ScreenUtilInit(
