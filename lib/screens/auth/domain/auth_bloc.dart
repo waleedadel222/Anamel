@@ -87,7 +87,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
-    onLoadProfile(event, emit) async {
+    on<LoadUserProfile>((event, emit) async {
       emit(AuthLoading());
 
       try {
@@ -100,7 +100,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } catch (e) {
         emit(AuthFailure(e.toString()));
       }
-    }
+    });
 
     on<LogoutUser>((event, emit) async {
       try {

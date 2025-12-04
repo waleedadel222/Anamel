@@ -41,6 +41,13 @@ class AppStyles {
     fontWeight: FontWeight.bold,
   );
 
+
+  static TextStyle text22BoldStyle = TextStyle(
+    fontFamily: AppFonts.primaryFont,
+    fontSize: 22.sp,
+    fontWeight: FontWeight.bold,
+  );
+
   static TextStyle text18BoldStyle = TextStyle(
     fontFamily: AppFonts.primaryFont,
     fontSize: 18.sp,

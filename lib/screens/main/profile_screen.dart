@@ -1,3 +1,4 @@
+import 'package:anamel/core/styling/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,25 +20,80 @@ class ProfileScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              // context.read<AuthBloc>().add(LogoutUser());
-
               GoRouter.of(context).pushNamed(AppRouting.settings);
             },
           ),
         ],
       ),
+
       body: ListView(
         children: [
           // user info
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Card(
-              elevation: 3,
-              child: ListTile(
-                title: Text("userModel.name"),
-                subtitle: Text("userModel.email"),
-              ),
-            ),
+          BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is AuthSuccess) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(state.userModel.name)));
+              } else if (state is AuthFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.errorMessage),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is AuthLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (state is AuthSuccess) {
+                var user = state.userModel;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.r),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 45.r,
+                              child: Text(user.name[0].toUpperCase()),
+                            ),
+
+                            SizedBox(height: 16.h),
+
+                            Text(user.name, style: AppStyles.text22BoldStyle),
+
+                            SizedBox(height: 8.h),
+
+                            Text(
+                              user.email,
+                              style: AppStyles.text16NormalStyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Edit Profile'),
+                    ),
+                  ],
+                );
+              }
+
+              return const Center(child: Text('Something went wrong'));
+            },
           ),
 
           // divider line
