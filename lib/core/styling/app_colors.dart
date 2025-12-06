@@ -20,7 +20,7 @@ class LightThemeColors {
   static const Color lightHint = Color(0xFF888888);
 
   static const Color dividerColor = Color(0xFFDDDDDD);
-
+  static const Color blackColor = Colors.black;
 }
 
 class DarkThemeColors {
@@ -43,5 +43,5 @@ class DarkThemeColors {
   static const Color darkHint = Color(0xFFB0B0B0);
 
   static const Color dividerColor = Color(0xFF2C2C2C);
-
+  static const Color blackColor = Colors.black;
 }

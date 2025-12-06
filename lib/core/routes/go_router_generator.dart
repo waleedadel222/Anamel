@@ -1,5 +1,6 @@
 import 'package:anamel/screens/cart/presentation/cart_screen.dart';
 import 'package:anamel/screens/create_new_password.dart';
+import 'package:anamel/screens/main/category/presentation/screens/category_screen.dart';
 import 'package:anamel/screens/main/main_screen.dart';
 import 'package:anamel/screens/onboarding_screen.dart';
 import 'package:anamel/screens/main/profile_screen.dart';
@@ -44,7 +45,6 @@ class GoRouterGenerator {
           path: AppRouting.login,
           builder: (context, state) => const LoginScreen(),
         ),
-
 
         // register screen
         GoRoute(
@@ -101,7 +101,7 @@ class GoRouterGenerator {
         GoRoute(
           name: AppRouting.categories,
           path: AppRouting.categories,
-          builder: (context, state) => Placeholder(),
+          builder: (context, state) => CategoryScreen(),
         ),
 
         // profile

@@ -3,6 +3,7 @@ import 'package:anamel/screens/address/domain/address_bloc.dart';
 import 'package:anamel/screens/auth/data/repository/auth_firebase_repository.dart';
 import 'package:anamel/screens/auth/data/repository/user_repository.dart';
 import 'package:anamel/screens/auth/domain/auth_bloc.dart';
+import 'package:anamel/screens/main/category/domain/cubit/category_cubit_cubit.dart';
 import 'package:anamel/screens/cart/data/repository/cart_repository.dart';
 import 'package:anamel/screens/cart/domain/cart_bloc.dart';
 import 'package:anamel/screens/cart/domain/cart_event.dart';
@@ -24,8 +25,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  final initialRoute = AppRouting.main;
-  // final initialRoute = await _getInitialRoute();
+  //final initialRoute = AppRouting.main;
+  final initialRoute = await _getInitialRoute();
 
   runApp(
     ChangeNotifierProvider(
@@ -73,6 +74,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<AddressBloc>(
           create: (context) => AddressBloc(repository: AddressRepository()),
         ),
+        BlocProvider<CategoryCubitCubit>(
+          create: (context) => CategoryCubitCubit(),
+        ),
 
         BlocProvider(
           create: (_) => CartBloc(CartRepository())..add(LoadCartEvent()),
@@ -96,3 +100,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+//aaaaaa
