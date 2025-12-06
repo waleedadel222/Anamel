@@ -1,3 +1,4 @@
+import 'package:anamel/screens/cart/presentation/cart_screen.dart';
 import 'package:anamel/screens/create_new_password.dart';
 import 'package:anamel/screens/main/main_screen.dart';
 import 'package:anamel/screens/onboarding_screen.dart';
@@ -93,7 +94,7 @@ class GoRouterGenerator {
           path: AppRouting.cart,
           builder: (context, state) =>
               // CartScreen(productId: 22, productName:  state.extra as String),
-              Placeholder(),
+              CartScreen(),
         ),
 
         // category
