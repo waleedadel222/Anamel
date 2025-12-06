@@ -3,7 +3,7 @@ import 'package:anamel/screens/create_new_password.dart';
 import 'package:anamel/screens/main/main_screen.dart';
 import 'package:anamel/screens/onboarding_screen.dart';
 import 'package:anamel/screens/main/profile_screen.dart';
-import 'package:anamel/screens/order_history.dart';
+import 'package:anamel/screens/order/presentation/order_history.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../screens/address/model/address_model.dart';
