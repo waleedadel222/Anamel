@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:anamel/core/Apis/api_constans.dart';
 import 'package:anamel/core/common_widgets/text_form_field_widget.dart';
+import 'package:anamel/core/routes/app_routing.dart';
 import 'package:anamel/screens/main/category/domain/cubit/category_cubit_cubit.dart';
 import 'package:anamel/screens/main/category/presentation/components/category_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -46,6 +50,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   final category = state.categoryModel[index];
                   return CategoryItem(
+                    onTap: () {
+                      log(state.categoryModel[index].id.toString());
+                      GoRouter.of(context).pushNamed(
+                        AppRouting.productByCategory,
+                        extra: state.categoryModel[index].id.toString(),
+                      );
+                    },
                     title: category.title,
                     image: category.imageUrl,
                     descraption: category.description,

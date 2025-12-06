@@ -4,6 +4,7 @@ import 'package:anamel/screens/auth/data/repository/auth_firebase_repository.dar
 import 'package:anamel/screens/auth/data/repository/user_repository.dart';
 import 'package:anamel/screens/auth/domain/auth_bloc.dart';
 import 'package:anamel/screens/main/category/domain/cubit/category_cubit_cubit.dart';
+import 'package:anamel/screens/main/product/domain/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,6 +73,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<CategoryCubitCubit>(
           create: (context) => CategoryCubitCubit(),
         ),
+        BlocProvider<ProductCubit>(create: (context) => ProductCubit()),
         // BlocProvider<AuthBloc>(create: (context) => AuthBloc(authRepository)),
       ],
       child: ScreenUtilInit(

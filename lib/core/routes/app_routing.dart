@@ -11,7 +11,7 @@ class AppRouting {
   static const String cart = '/cart_screen';
   static const String profile = '/profile_screen';
   static const String categories = '/categories';
-
+  static const String productByCategory = '/product_by_category';
 
   static const String settings = '/settings';
   static const String createNewPassword = '/create_new_password';
@@ -19,10 +19,7 @@ class AppRouting {
   static const String addresses = '/Addresses';
   static const String addEditAddress = '/add_edit_address';
 
-
-
-
-//----------------
+  //----------------
   static const String productDetails = '/product_details';
   static const String checkout = '/checkout';
   static const String orderConfirmation = '/order_confirmation';
@@ -32,5 +29,4 @@ class AppRouting {
   static const String paymentMethods = '/payment_methods';
   static const String aboutUs = '/about_us';
   static const String contactUs = '/contact_us';
-
 }
