@@ -23,15 +23,29 @@ class AppStyles {
   );
 
   static TextStyle logoTitleStyle = TextStyle(
-    fontFamily: AppFonts.secondaryFont,
+    fontFamily: AppFonts.poppinsFont,
     fontSize: 24.sp,
     fontWeight: FontWeight.bold,
   );
   static TextStyle logoSubtitleStyle = TextStyle(
-    fontFamily: AppFonts.secondaryFont,
+    fontFamily: AppFonts.poppinsFont,
     fontSize: 15.sp,
     fontWeight: FontWeight.w300,
   );
+
+//---- Cart
+  static TextStyle bodyStyle=TextStyle(
+    fontFamily: AppFonts.cairoFont,
+    fontSize: 18
+  );
+
+  static TextStyle smallCaptionStyle = TextStyle(
+    fontFamily: AppFonts.cairoFont,
+    fontSize: 16.sp,
+  );
+
+
+
 
   //-------- pin code
   static TextStyle pinCodeStyle = TextStyle(

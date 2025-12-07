@@ -1,8 +1,11 @@
 import 'package:anamel/screens/main/cart_screen.dart';
 import 'package:anamel/screens/main/category/presentation/screens/category_screen.dart';
+import 'package:anamel/screens/main/category_screen.dart';
 import 'package:anamel/screens/main/home_screen.dart';
 import 'package:anamel/screens/main/profile_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../cart/presentation/cart_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

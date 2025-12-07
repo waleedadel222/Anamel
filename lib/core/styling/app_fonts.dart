@@ -1,8 +1,7 @@
 
 class AppFonts {
   static const String primaryFont = "OpenSans";
-  static const String secondaryFont = "Poppins";
-
-
+  static const String poppinsFont = "Poppins";
+  static const String cairoFont ="Cairo";
 
 }
