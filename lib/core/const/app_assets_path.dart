@@ -14,4 +14,5 @@ class AppAssetsPath {
   static const String macrame = "assets/images/macrame assortment indoors.jpg";
   static const String sofa = "assets/images/Mask group.png";
   static const String handmade = "assets/images/handmade.jpg";
+  static String splashLogo = "assets/lotties/lottie_splash.json";
 }

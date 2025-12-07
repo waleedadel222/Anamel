@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LightThemeColors {
-  static const Color primaryColor = Color(0xFFFFC107);
+  static const Color primaryColor = Color(0xFFFF7A5C);
   static const Color onPrimary = Color(0xFF1A1A1A);
 
   static const Color secondaryColor = Color(0xFF0D47A1);
@@ -20,7 +20,7 @@ class LightThemeColors {
   static const Color lightHint = Color(0xFF888888);
 
   static const Color dividerColor = Color(0xFFDDDDDD);
-
+  static const Color blackColor = Colors.black;
 }
 
 class DarkThemeColors {
@@ -43,5 +43,5 @@ class DarkThemeColors {
   static const Color darkHint = Color(0xFFB0B0B0);
 
   static const Color dividerColor = Color(0xFF2C2C2C);
-
+  static const Color blackColor = Colors.black;
 }
