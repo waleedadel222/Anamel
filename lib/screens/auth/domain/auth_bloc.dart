@@ -1,4 +1,5 @@
 import 'package:anamel/core/const/app_const.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../data/repository/auth_firebase_repository.dart';
 import '../data/repository/user_repository.dart';
@@ -70,14 +71,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
 
       try {
-
         await authFirebaseRepo.forgetPassword(event.email);
 
         //delete any cached user data and log out
         await authFirebaseRepo.logout();
         await AppConst.clearUserData();
 
-        emit(PasswordResetSuccess("a password reset link has been sent to your email"));
+        emit(
+          PasswordResetSuccess(
+            "a password reset link has been sent to your email",
+          ),
+        );
       } catch (e) {
         emit(AuthFailure(e.toString()));
       }
@@ -98,11 +102,43 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     }
 
-    onLogout(event, emit) async {
-      await authFirebaseRepo.logout();
+    on<LogoutUser>((event, emit) async {
+      try {
+        // 1- Logout from Firebase Authentication
+        await authFirebaseRepo.logout();
 
-      emit(AuthLogOut());
-    }
+        // 2- Clear any cached user data
+        await AppConst.clearUserData();
 
+        emit(AuthLogOutSuccess());
+      } catch (e) {
+        emit(AuthFailure(e.toString()));
+      }
+    });
+
+    on<DeleteUserAccount>((event, emit) async {
+      emit(AuthLoading());
+
+      try {
+        final user = await authFirebaseRepo.getCurrentUser();
+
+        if (user != null) {
+          // 1- Delete user account from Firebase Authentication
+          await authFirebaseRepo.deleteAccount();
+
+          // 2- Delete user document from Firestore
+          await userRepo.deleteUserDocument(user.uid);
+
+          // 3- Clear any cached user data
+          await AppConst.clearUserData();
+
+          emit(DeleteAccountSuccess());
+        } else {
+          emit(AuthFailure("No authenticated user found."));
+        }
+      } catch (e) {
+        emit(AuthFailure(e.toString()));
+      }
+    });
   }
 }

@@ -51,7 +51,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                     const SnackBar(content: Text('Register Successful')),
                   );
                   // go to main screen
-                  GoRouter.of(context).pushReplacementNamed(AppRouting.home);
+                  GoRouter.of(context).pushReplacementNamed(AppRouting.main);
                 } else if (state is AuthFailure) {
                   ScaffoldMessenger.of(
                     context,

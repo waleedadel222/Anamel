@@ -29,9 +29,11 @@ class AuthFailure extends AuthState {
   List<Object?> get props => [errorMessage];
 }
 
-class AuthLogOut extends AuthState {}
+class AuthLogOutSuccess extends AuthState {}
 
 class PasswordResetSuccess extends AuthState {
   final String message;
   PasswordResetSuccess(this.message);
 }
+
+class DeleteAccountSuccess extends AuthState {}

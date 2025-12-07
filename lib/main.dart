@@ -1,54 +1,98 @@
+import 'package:anamel/screens/address/address_repository/address_repository.dart';
+import 'package:anamel/screens/address/domain/address_bloc.dart';
 import 'package:anamel/screens/auth/data/repository/auth_firebase_repository.dart';
 import 'package:anamel/screens/auth/data/repository/user_repository.dart';
 import 'package:anamel/screens/auth/domain/auth_bloc.dart';
+import 'package:anamel/screens/main/category/domain/cubit/category_cubit_cubit.dart';
+import 'package:anamel/screens/main/product/domain/cubit/product_cubit.dart';
+import 'package:anamel/screens/cart/data/repository/cart_repository.dart';
+import 'package:anamel/screens/cart/domain/cart_bloc.dart';
+import 'package:anamel/screens/cart/domain/cart_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'core/routes/go_router_generator.dart';
 import 'core/styling/app_themes.dart';
 import 'core/styling/theme_notifier.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'core/routes/app_routing.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
+  //final initialRoute = AppRouting.main;
+  final initialRoute = await _getInitialRoute();
+
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeNotifier(),
-      child: const MyApp(),
+      child: MyApp(initialRoute: initialRoute),
     ),
   );
 }
 
+Future<String> _getInitialRoute() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  bool isFirstTime = prefs.getBool("is_first_time") ?? true;
+
+  if (isFirstTime) {
+    prefs.setBool("is_first_time", false);
+    return AppRouting.onboarding;
+  }
+
+  final user = FirebaseAuth.instance.currentUser;
+
+  if (user != null) {
+    return AppRouting.home;
+  } else {
+    return AppRouting.login;
+  }
+}
+
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String initialRoute;
+
+  const MyApp({super.key, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(
+          create: (_) => AuthBloc(
             authFirebaseRepo: AuthFirebaseRepository(),
             userRepo: UserRepository(),
           ),
         ),
-        // BlocProvider<AuthBloc>(create: (context) => AuthBloc(authRepository)),
-        // BlocProvider<AuthBloc>(create: (context) => AuthBloc(authRepository)),
+        BlocProvider<AddressBloc>(
+          create: (context) => AddressBloc(repository: AddressRepository()),
+        ),
+        BlocProvider<CategoryCubitCubit>(
+          create: (context) => CategoryCubitCubit(),
+        ),
+        BlocProvider<ProductCubit>(create: (context) => ProductCubit()),
+
+        BlocProvider(
+          create: (_) => CartBloc(CartRepository())..add(LoadCartEvent()),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: Size(375, 812),
         builder: (context, child) {
           return MaterialApp.router(
-            title: "Amanel",
+            title: "Anamel",
             theme: AppThemes.lightTheme,
             darkTheme: AppThemes.darkTheme,
             themeMode: Provider.of<ThemeNotifier>(context).themeMode,
-            routerConfig: GoRouterGenerator.mainRouter,
+            routerConfig: GoRouterGenerator.generateRouter(initialRoute),
+            debugShowCheckedModeBanner: false,
           );
         },
       ),

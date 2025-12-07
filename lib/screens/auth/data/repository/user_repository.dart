@@ -24,4 +24,12 @@ class UserRepository {
       throw Exception((e.toString()));
     }
   }
+
+  Future<void> deleteUserDocument(String uid) async {
+    try {
+      await _firestore.collection("users").doc(uid).delete();
+    } catch (e) {
+      throw Exception((e.toString()));
+    }
+  }
 }
