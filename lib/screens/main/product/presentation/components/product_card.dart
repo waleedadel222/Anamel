@@ -10,7 +10,9 @@ class ProductCard extends StatelessWidget {
   final String descraption;
   final VoidCallback onTap;
   final String price;
+  final VoidCallback iconTap;
   const ProductCard({
+    required this.iconTap,
     required this.price,
     required this.onTap,
     super.key,
@@ -23,30 +25,31 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          width: 350.w,
-          height: 132.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16.r),
-            color: Colors.white,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
+      child: Container(
+        width: 350.w,
+        height: 112.h,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              onTap: onTap,
+              child: Expanded(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        title,
-                        style: AppStyles.text20simiBold.copyWith(
-                          fontSize: 13.sp,
+                      child: SizedBox(
+                        width: 150,
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          title,
+                          style: AppStyles.text20simiBold.copyWith(
+                            fontSize: 16,
+                          ),
+                          maxLines: 2,
                         ),
                       ),
                     ),
@@ -64,14 +67,15 @@ class ProductCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
-                        width: 51,
-                        height: 16.h,
+                        width: 31,
+                        height: 18,
+
                         child: RatingBar.builder(
+                          itemSize: 20,
                           initialRating: 4,
                           minRating: 1,
                           direction: Axis.vertical,
-                          itemCount: 4,
-                          itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+                          itemCount: 5,
                           itemBuilder: (context, _) =>
                               Icon(Icons.star, color: Colors.amber),
                           onRatingUpdate: (rating) {},
@@ -81,22 +85,38 @@ class ProductCard extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
 
-              // ignore: sized_box_for_whitespace
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: CachedNetworkImage(
-                  imageUrl: image,
-                  width: 160.w,
-                  height: 150.h,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+            // ignore: sized_box_for_whitespace
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: CachedNetworkImage(
+                    imageUrl: image,
+                    width: 160.w,
+                    height: 150.h,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
-              ),
-            ],
-          ),
+                Positioned(
+                  top: 5,
+                  left: 5,
+                  child: IconButton(
+                    onPressed: iconTap,
+                    icon: Icon(
+                      Icons.shopping_cart_rounded,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

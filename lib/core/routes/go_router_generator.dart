@@ -1,6 +1,8 @@
 import 'package:anamel/screens/create_new_password.dart';
 import 'package:anamel/screens/main/category/presentation/screens/category_screen.dart';
+import 'package:anamel/screens/main/product/presentation/screens/product_details.dart';
 import 'package:anamel/screens/main/main_screen.dart';
+import 'package:anamel/screens/main/product/models/product_model.dart';
 import 'package:anamel/screens/main/product/presentation/screens/product_screen.dart';
 import 'package:anamel/screens/onboarding_screen.dart';
 import 'package:anamel/screens/main/profile_screen.dart';
@@ -138,9 +140,21 @@ class GoRouterGenerator {
           path: AppRouting.productByCategory,
 
           builder: (context, state) {
-            final id = state.extra as String;
+            final pageDetails = state.extra as Map<String, dynamic>;
 
-            return ProductScreen(IdCategory: id);
+            return ProductScreen(
+              idCategory: pageDetails["id"],
+              categoruName: pageDetails["name"],
+            );
+          },
+        ),
+        // order history
+        GoRoute(
+          name: AppRouting.productDetails,
+          path: AppRouting.productDetails,
+          builder: (context, state) {
+            final model = state.extra as ProductModel;
+            return ProductDetails(model: model, onTap: () {});
           },
         ),
 

@@ -26,11 +26,8 @@ class CategoryItem extends StatelessWidget {
         onTap: onTap,
         child: Container(
           width: 350.w,
-          height: 122.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16.r),
-            color: Colors.white,
-          ),
+          height: 112.h,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -38,7 +35,7 @@ class CategoryItem extends StatelessWidget {
                 child: Text(
                   textAlign: TextAlign.center,
                   title,
-                  style: AppStyles.text20simiBold.copyWith(fontSize: 13.sp),
+                  style: AppStyles.text20simiBold,
                 ),
               ),
 

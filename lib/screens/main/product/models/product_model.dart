@@ -6,8 +6,10 @@ class ProductModel {
   int stockQuantity;
   String description;
   String category;
+  int rating;
 
   ProductModel({
+    required this.rating,
     required this.id,
     required this.name,
     required this.price,
@@ -26,6 +28,7 @@ class ProductModel {
       stockQuantity: json['stockQuantity'],
       description: json['description'],
       category: json['categoryName'],
+      rating: json["rate"],
     );
   }
 }

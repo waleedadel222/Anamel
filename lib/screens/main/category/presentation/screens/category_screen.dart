@@ -31,13 +31,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xffFFF2EA),
         centerTitle: true,
-        title: TextFormFieldWidget(
-          hintText: "Search",
-          suffixIcon: Icon(Icons.search),
-        ),
+        title: Text(" Categories"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(16.0),
         child: BlocBuilder<CategoryCubitCubit, CategoryCubitState>(
           builder: (context, state) {
             if (state is CategoryCubitLoading) {
@@ -52,9 +49,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   return CategoryItem(
                     onTap: () {
                       log(state.categoryModel[index].id.toString());
+                      log(state.categoryModel[index].title);
                       GoRouter.of(context).pushNamed(
                         AppRouting.productByCategory,
-                        extra: state.categoryModel[index].id.toString(),
+                        extra: {
+                          "id": state.categoryModel[index].id.toString(),
+                          "name": state.categoryModel[index].title,
+                        },
                       );
                     },
                     title: category.title,
@@ -64,7 +65,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 },
               );
             } else {
-              return Container();
+              return Container(child: Center(child: Text("there is no data")));
             }
           },
         ),

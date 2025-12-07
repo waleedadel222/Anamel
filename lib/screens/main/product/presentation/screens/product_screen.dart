@@ -1,12 +1,22 @@
+import 'dart:developer';
+
 import 'package:anamel/core/common_widgets/text_form_field_widget.dart';
+import 'package:anamel/core/routes/app_routing.dart';
+import 'package:anamel/core/styling/app_styles.dart';
 import 'package:anamel/screens/main/product/domain/cubit/product_cubit.dart';
 import 'package:anamel/screens/main/product/presentation/components/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductScreen extends StatefulWidget {
-  final String IdCategory;
-  const ProductScreen({super.key, required this.IdCategory});
+  final String idCategory;
+  final String categoruName;
+  const ProductScreen({
+    super.key,
+    required this.idCategory,
+    required this.categoruName,
+  });
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -15,7 +25,7 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   void initState() {
     super.initState();
-    context.read<ProductCubit>().getproductByCategory(id: widget.IdCategory);
+    context.read<ProductCubit>().getproductByCategory(id: widget.idCategory);
   }
 
   @override
@@ -25,9 +35,9 @@ class _ProductScreenState extends State<ProductScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xffFFF2EA),
         centerTitle: true,
-        title: TextFormFieldWidget(
-          hintText: "Search",
-          suffixIcon: const Icon(Icons.search),
+        title: Text(
+          " ${widget.categoruName} ",
+          style: AppStyles.text16NormalStyle,
         ),
       ),
       body: Padding(
@@ -45,7 +55,14 @@ class _ProductScreenState extends State<ProductScreen> {
                   final product = state.products[index];
                   return ProductCard(
                     price: product.price.toString(),
-                    onTap: () {},
+                    onTap: () {
+                      log(state.products[index].name.toString());
+                      GoRouter.of(context).pushNamed(
+                        AppRouting.productDetails,
+                        extra: state.products[index],
+                      );
+                    },
+                    iconTap: () {},
                     title: product.name,
                     image: product.imageUrl,
                     descraption: product.description,
