@@ -1,3 +1,4 @@
+import 'package:anamel/core/Apis/api_functions.dart';
 import 'package:anamel/screens/address/address_repository/address_repository.dart';
 import 'package:anamel/screens/address/domain/address_bloc.dart';
 import 'package:anamel/screens/auth/data/repository/auth_firebase_repository.dart';
@@ -7,6 +8,7 @@ import 'package:anamel/screens/main/category/domain/cubit/category_cubit_cubit.d
 import 'package:anamel/screens/cart/data/repository/cart_repository.dart';
 import 'package:anamel/screens/cart/domain/cart_bloc.dart';
 import 'package:anamel/screens/cart/domain/cart_event.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,9 +26,8 @@ import 'core/routes/app_routing.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  //final initialRoute = AppRouting.main;
-  final initialRoute = await _getInitialRoute();
+  final initialRoute = AppRouting.main;
+  // final initialRoute = await _getInitialRoute();
 
   runApp(
     ChangeNotifierProvider(
@@ -62,6 +63,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dio = Dio();
+
     return MultiRepositoryProvider(
       providers: [
         BlocProvider<AuthBloc>(
@@ -78,8 +81,9 @@ class MyApp extends StatelessWidget {
           create: (context) => CategoryCubitCubit(),
         ),
 
-        BlocProvider(
-          create: (_) => CartBloc(CartRepository())..add(LoadCartEvent()),
+    BlocProvider(
+
+          create: (_) => CartBloc(CartRepository(Dio()))..add(LoadCartEvent()),
         ),
 
         // BlocProvider<AuthBloc>(create: (context) => AuthBloc(authRepository)),

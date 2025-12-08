@@ -37,7 +37,7 @@ class _CartScreenState extends State<CartScreen> {
           if (state is CartError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: Text(getUserFriendlyMessage(state.message)),
                 backgroundColor: Colors.red,
                 behavior: SnackBarBehavior.floating,
               ),
@@ -45,7 +45,7 @@ class _CartScreenState extends State<CartScreen> {
           }
         },
         builder: (context, state) {
-          //  Loading State
+          // Loading State
           if (state is CartLoading) {
             return Center(
               child: Column(
@@ -67,7 +67,7 @@ class _CartScreenState extends State<CartScreen> {
             );
           }
 
-          //  Error State
+          // Error State
           if (state is CartError) {
             return Center(
               child: Column(
@@ -91,7 +91,7 @@ class _CartScreenState extends State<CartScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     child: Text(
-                      state.message,
+                      getUserFriendlyMessage(state.message),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14,
@@ -102,7 +102,6 @@ class _CartScreenState extends State<CartScreen> {
                   SizedBox(height: 24),
                   ElevatedButton.icon(
                     onPressed: () {
-                      // Retry button
                       context.read<CartBloc>().add(LoadCartEvent());
                     },
                     icon: Icon(Icons.refresh),
@@ -165,17 +164,17 @@ class _CartScreenState extends State<CartScreen> {
                         item: item,
                         onIncrease: () {
                           context.read<CartBloc>().add(
-                            IncreaseQuantityEvent(item.id),
+                            IncreaseQuantityEvent(item.id!.toInt()),
                           );
                         },
                         onDecrease: () {
                           context.read<CartBloc>().add(
-                            DecreaseQuantityEvent(item.id),
+                            DecreaseQuantityEvent(item.id!.toInt()),
                           );
                         },
                         onDelete: () {
                           context.read<CartBloc>().add(
-                            RemoveFromCartEvent(item.id),
+                            RemoveFromCartEvent(item.id!.toInt()),
                           );
                         },
                       );
@@ -205,6 +204,26 @@ class _CartScreenState extends State<CartScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        // Total Items Row
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total Items',
+                              style: AppStyles.smallCaptionStyle.copyWith(
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                            Text(
+                              '${state.totalItems}',
+                              style: AppStyles.bodyStyle.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 8),
+
                         // Total Price Row
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -216,7 +235,7 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                             ),
                             Text(
-                              '${state.totalPrice.toStringAsFixed(2)} EGP',
+                              '${state.totalAmount.toStringAsFixed(2)} EGP',
                               style: AppStyles.bodyStyle.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -230,12 +249,10 @@ class _CartScreenState extends State<CartScreen> {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Checkout action
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text('Proceeding to checkout...'),
-                                  backgroundColor:
-                                  Theme.of(context).primaryColor,
+                                  backgroundColor: Theme.of(context).primaryColor,
                                 ),
                               );
                             },
@@ -251,9 +268,7 @@ class _CartScreenState extends State<CartScreen> {
                               'Checkout',
                               style: AppStyles.bodyStyle.copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondary,
+                                color: Theme.of(context).colorScheme.onSecondary,
                               ),
                             ),
                           ),
@@ -275,4 +290,16 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
+
+  String getUserFriendlyMessage(String error) {
+    if (error.contains('DioException')) {
+      return 'Network error. Check your connection.';
+    } else if (error.contains('Failed to load cart')) {
+      return 'Could not load your cart. Please try again.';
+    } else if (error.contains('Failed to add item')) {
+      return 'Could not add the item to your cart.';
+    }
+    return 'Something went wrong. Please try again.';
+  }
+
 }

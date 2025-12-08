@@ -24,6 +24,7 @@ class ApiConstans {
   static const String addCart = "$baseUrl/Cart/items";
   static const String deletProductInCart = '$baseUrl/Cart/items/:id';
 
+
   //category call apis
   static const String getCategories = '$baseUrl/Categories';
   static const String getCategoryById = '$baseUrl/Categories';
