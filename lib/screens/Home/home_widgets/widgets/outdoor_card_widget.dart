@@ -1,5 +1,4 @@
 import 'package:anamel/core/const/app_styles.dart';
-import 'package:anamel/screens/Home/home_models/models/outdoor_card_model.dart';
 import 'package:anamel/screens/main/product/models/product_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';

@@ -3,9 +3,6 @@ import 'package:anamel/screens/cart/presentation/widgets/quantity_button_widget.
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../model/cart_item_model.dart';
-import 'package:anamel/core/styling/app_colors.dart';
-
-
 
 class CartItemCard extends StatelessWidget {
   final CartItemModel item;
@@ -27,12 +24,14 @@ class CartItemCard extends StatelessWidget {
       height: 145.sp,
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       decoration: BoxDecoration(
-        boxShadow:  [BoxShadow(
-          color: Colors.black.withOpacity(0.1),
-          blurRadius: 10,
-          spreadRadius: 1,
-          offset: Offset(0, 4.sp),
-        )],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 1,
+            offset: Offset(0, 4.sp),
+          ),
+        ],
         color: Colors.white,
 
         borderRadius: BorderRadius.circular(20),
@@ -41,44 +40,35 @@ class CartItemCard extends StatelessWidget {
         children: [
           Expanded(
             child: Padding(
-              padding:  EdgeInsets.only(left: 24.sp, top: 22.sp, bottom: 12.sp),
+              padding: EdgeInsets.only(left: 24.sp, top: 22.sp, bottom: 12.sp),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    item.name,
-                    style:AppStyles.bodyStyle
-                  ),
+                  Text(item.name, style: AppStyles.bodyStyle),
 
                   SizedBox(height: 12.sp),
-
 
                   Text(
                     "${item.price * item.quantity} EGP",
-                    style:AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.bold)
+                    style: AppStyles.bodyStyle.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(height: 12.sp),
 
-
-
-               // Item Quantity +  Quantity Buttons
-
+                  // Item Quantity +  Quantity Buttons
                   Row(
                     children: [
-                      QuantityButton(
-                        icon: Icons.remove,
-                        onPressed: onDecrease,
-                      ),
+                      QuantityButton(icon: Icons.remove, onPressed: onDecrease),
                       SizedBox(width: 20.sp),
                       Text(
                         "${item.quantity}",
-                        style:AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.bold),
+                        style: AppStyles.bodyStyle.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       SizedBox(width: 20.sp),
-                      QuantityButton(
-                        icon: Icons.add,
-                        onPressed: onIncrease,
-                      ),
+                      QuantityButton(icon: Icons.add, onPressed: onIncrease),
                     ],
                   ),
                 ],
@@ -88,10 +78,7 @@ class CartItemCard extends StatelessWidget {
 
           SizedBox(width: 16.sp),
 
-
-
           // Item Image + Delete Button
-
           Stack(
             children: [
               ClipRRect(
