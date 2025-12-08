@@ -2,10 +2,12 @@ import 'package:anamel/core/styling/app_styles.dart';
 import 'package:anamel/screens/cart/presentation/widgets/quantity_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../model/cart_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../model/cart_item_model.dart';
 
 class CartItemCard extends StatelessWidget {
-  final CartItemModel item;
+  final Items item;
   final VoidCallback onIncrease;
   final VoidCallback onDecrease;
   final VoidCallback onDelete;
@@ -30,10 +32,10 @@ class CartItemCard extends StatelessWidget {
             blurRadius: 10,
             spreadRadius: 1,
             offset: Offset(0, 4.sp),
+          )
           ),
         ],
         color: Colors.white,
-
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -44,6 +46,15 @@ class CartItemCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    item.productName ?? 'Product',
+                    style: AppStyles.bodyStyle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 12.sp),
+                  Text(
+                    "${item.totalPrice?.toStringAsFixed(2) ?? '0.00'} EGP",
                   Text(item.name, style: AppStyles.bodyStyle),
 
                   SizedBox(height: 12.sp),
@@ -56,12 +67,14 @@ class CartItemCard extends StatelessWidget {
                   ),
                   SizedBox(height: 12.sp),
 
+                  // Item Quantity + Quantity Buttons
                   // Item Quantity +  Quantity Buttons
                   Row(
                     children: [
                       QuantityButton(icon: Icons.remove, onPressed: onDecrease),
                       SizedBox(width: 20.sp),
                       Text(
+                        "${item.quantity ?? 0}",
                         "${item.quantity}",
                         style: AppStyles.bodyStyle.copyWith(
                           fontWeight: FontWeight.bold,
@@ -75,7 +88,6 @@ class CartItemCard extends StatelessWidget {
               ),
             ),
           ),
-
           SizedBox(width: 16.sp),
 
           // Item Image + Delete Button
@@ -86,11 +98,43 @@ class CartItemCard extends StatelessWidget {
                   topRight: Radius.circular(15),
                   bottomRight: Radius.circular(15),
                 ),
-                child: Image.asset(
-                  item.imagePath,
+                child: item.imageUrl != null && item.imageUrl!.isNotEmpty
+                    ? CachedNetworkImage(
+                  imageUrl: item.imageUrl!,
                   width: 145.sp,
                   height: 145.sp,
                   fit: BoxFit.cover,
+                  placeholder: (context, url) => Container(
+                    width: 145.sp,
+                    height: 145.sp,
+                    color: Colors.grey[200],
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).primaryColor,
+                        strokeWidth: 2,
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    width: 145.sp,
+                    height: 145.sp,
+                    color: Colors.grey[200],
+                    child: Icon(
+                      Icons.image_not_supported,
+                      color: Colors.grey[400],
+                      size: 50,
+                    ),
+                  ),
+                )
+                    : Container(
+                  width: 145.sp,
+                  height: 145.sp,
+                  color: Colors.grey[200],
+                  child: Icon(
+                    Icons.image,
+                    color: Colors.grey[400],
+                    size: 50,
+                  ),
                 ),
               ),
               Positioned(
