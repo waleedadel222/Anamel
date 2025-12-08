@@ -9,7 +9,6 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   final Dio dio = Dio();
-
   Future<void> fetchCategories() async {
     emit(HomeLoading());
     try {
