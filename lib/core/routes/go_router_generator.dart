@@ -63,6 +63,7 @@ class GoRouterGenerator {
           builder: (context, state) => ForgetPasswordScreen(),
         ),
 
+
         // New Password screen
         GoRoute(
           name: AppRouting.createNewPassword,
@@ -74,7 +75,8 @@ class GoRouterGenerator {
         GoRoute(
           name: AppRouting.otpVerification,
           path: AppRouting.otpVerification,
-          builder: (context, state) => OptVerify(),
+          builder: (context, state) => OptVerify(email:  state.extra as String),
+
         ),
 
         // main screen

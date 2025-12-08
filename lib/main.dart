@@ -1,6 +1,7 @@
 import 'package:anamel/screens/address/address_repository/address_repository.dart';
 import 'package:anamel/screens/address/domain/address_bloc.dart';
 import 'package:anamel/screens/auth/data/repository/auth_firebase_repository.dart';
+import 'package:anamel/screens/auth/data/repository/auth_repo.dart';
 import 'package:anamel/screens/auth/data/repository/user_repository.dart';
 import 'package:anamel/screens/auth/domain/auth_bloc.dart';
 import 'package:anamel/screens/main/category/domain/cubit/category_cubit_cubit.dart';
@@ -65,12 +66,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        BlocProvider<AuthBloc>(
-          create: (_) => AuthBloc(
-            authFirebaseRepo: AuthFirebaseRepository(),
-            userRepo: UserRepository(),
-          ),
-        ),
+        // BlocProvider<AuthBloc>(
+        //   create: (_) => AuthBloc(
+        //     authFirebaseRepo: AuthFirebaseRepository(),
+        //     userRepo: UserRepository(),
+        //   ),
+        // ),
+        BlocProvider<AuthBloc>(create: (_) => AuthBloc(authRepo: AuthRepo())),
+
         BlocProvider<AddressBloc>(
           create: (context) => AddressBloc(repository: AddressRepository()),
         ),

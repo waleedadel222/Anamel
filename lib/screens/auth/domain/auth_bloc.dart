@@ -1,144 +1,195 @@
-import 'package:anamel/core/const/app_const.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// lib/bloc/auth_bloc.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../data/repository/auth_firebase_repository.dart';
-import '../data/repository/user_repository.dart';
-import '../model/user_model.dart';
+import '../data/repository/auth_repo.dart';
+import '../model/auth_request.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthFirebaseRepository authFirebaseRepo;
-  final UserRepository userRepo;
+  final AuthRepo _authRepo;
 
-  AuthBloc({required this.authFirebaseRepo, required this.userRepo})
-    : super(AuthInitial()) {
-    on<RegisterUser>((event, emit) async {
-      emit(AuthLoading());
+  AuthBloc({required AuthRepo authRepo})
+    : _authRepo = authRepo,
+      super(const AuthInitial()) {
+    // Handle Login
+    on<LoginRequested>(_onLoginRequested);
 
-      try {
-        final user = await authFirebaseRepo.registerWithEmailAndPassword(
-          event.email,
-          event.password,
-        );
+    // Handle Register
+    on<RegisterRequested>(_onRegisterRequested);
 
-        if (user == null) {
-          emit(AuthFailure("can't register user, try again later"));
-          return;
-        }
+    // Handle Logout
+    on<LogoutRequested>(_onLogoutRequested);
 
-        final userModel = UserModel(
-          uid: user.uid,
-          name: event.name,
-          email: event.email,
-        );
+    // Check Auth Status
+    on<CheckAuthStatus>(_onCheckAuthStatus);
 
-        await userRepo.createUserDocument(userModel);
+    // Handle Password Reset
+    on<SendResetCodeRequested>(_onSendResetCodeRequested);
+    on<VerifyCodeRequested>(_onVerifyResetCodeRequested);
+    on<ResetPasswordRequested>(_onResetPasswordRequested);
+  }
 
-        emit(AuthSuccess(userModel));
-      } catch (e) {
-        emit(AuthFailure(e.toString()));
-      }
-    });
+  // Login Handler
+  Future<void> _onLoginRequested(
+    LoginRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
 
-    on<LoginUser>((event, emit) async {
-      emit(AuthLoading());
+    try {
+      final loginRequest = LoginRequest(
+        email: event.email,
+        password: event.password,
+      );
 
-      try {
-        final user = await authFirebaseRepo.logInWithEmailAndPassword(
-          event.email,
-          event.password,
-        );
+      final user = await _authRepo.login(loginRequest);
 
-        if (user == null) {
-          emit(AuthFailure("can't login user, try again later"));
-          return;
-        }
+      // save token to SharedPreferences
+      // await _saveToken(user.token);
 
-        final userModelData = await userRepo.getUser(user.uid);
-        if (userModelData == null) {
-          emit(AuthFailure('User data not found in database.'));
-          return;
-        }
-
-        emit(AuthSuccess(userModelData));
-      } catch (e) {
-        emit(AuthFailure(e.toString()));
-      }
-    });
-
-    on<ForgotPasswordEvent>((event, emit) async {
-      emit(AuthLoading());
-
-      try {
-        await authFirebaseRepo.forgetPassword(event.email);
-
-        //delete any cached user data and log out
-        await authFirebaseRepo.logout();
-        await AppConst.clearUserData();
-
-        emit(
-          PasswordResetSuccess(
-            "a password reset link has been sent to your email",
-          ),
-        );
-      } catch (e) {
-        emit(AuthFailure(e.toString()));
-      }
-    });
-
-    onLoadProfile(event, emit) async {
-      emit(AuthLoading());
-
-      try {
-        final userModel = await userRepo.getUser(event.uid);
-        if (userModel == null) {
-          emit(AuthFailure("User not found"));
-          return;
-        }
-        emit(AuthSuccess(userModel));
-      } catch (e) {
-        emit(AuthFailure(e.toString()));
-      }
+      emit(AuthAuthenticated(user: user));
+    } catch (e) {
+      emit(AuthError(message: e.toString()));
+      // emit(AuthAuthenticated(user: null));
     }
+  }
 
-    on<LogoutUser>((event, emit) async {
-      try {
-        // 1- Logout from Firebase Authentication
-        await authFirebaseRepo.logout();
+  // Register Handler
+  Future<void> _onRegisterRequested(
+    RegisterRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
 
-        // 2- Clear any cached user data
-        await AppConst.clearUserData();
+    try {
+      final registerRequest = RegisterRequest(
+        email: event.email,
+        password: event.password,
+        passwordConfirmation: event.passwordConfirmation,
+        firstName: event.firstName,
+        lastName: event.lastName,
+      );
 
-        emit(AuthLogOutSuccess());
-      } catch (e) {
-        emit(AuthFailure(e.toString()));
-      }
-    });
+      final user = await _authRepo.register(registerRequest);
 
-    on<DeleteUserAccount>((event, emit) async {
-      emit(AuthLoading());
+      // save token to SharedPreferences
+      // await _saveToken(user.token);
 
-      try {
-        final user = await authFirebaseRepo.getCurrentUser();
+      emit(AuthAuthenticated(user: user));
+    } catch (e) {
+      emit(AuthError(message: e.toString()));
+    }
+  }
 
-        if (user != null) {
-          // 1- Delete user account from Firebase Authentication
-          await authFirebaseRepo.deleteAccount();
+  // Logout Handler
+  Future<void> _onLogoutRequested(
+    LogoutRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
 
-          // 2- Delete user document from Firestore
-          await userRepo.deleteUserDocument(user.uid);
-
-          // 3- Clear any cached user data
-          await AppConst.clearUserData();
-
-          emit(DeleteAccountSuccess());
-        } else {
-          emit(AuthFailure("No authenticated user found."));
+    try {
+      // Get current user token
+      if (state is AuthAuthenticated) {
+        final currentState = state as AuthAuthenticated;
+        if (currentState.user.token != null) {
+          await _authRepo.logout(currentState.user.token!);
         }
-      } catch (e) {
-        emit(AuthFailure(e.toString()));
       }
-    });
+
+      // clear SharedPreferences
+      // await _clearToken();
+
+      emit(const AuthUnauthenticated());
+    } catch (e) {
+      emit(AuthError(message: e.toString()));
+      // even when can't logout from server, logout locally
+      emit(const AuthUnauthenticated());
+    }
+  }
+
+  // Check Auth Status Handler
+  Future<void> _onCheckAuthStatus(
+    CheckAuthStatus event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
+
+    try {
+      // final token = await _getToken();
+      // if (token != null) {
+      //   final user = await _authApiService.getUserProfile(token);
+      //   emit(AuthAuthenticated(user: user));
+      // } else {
+      //   emit(const AuthUnauthenticated());
+      // }
+
+      // no token logic for now
+      emit(const AuthUnauthenticated());
+    } catch (e) {
+      emit(const AuthUnauthenticated());
+    }
+  }
+
+  // Send Reset Code Handler
+  Future<void> _onSendResetCodeRequested(
+    SendResetCodeRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
+
+    try {
+      final message = await _authRepo.sendResetCode(event.email);
+
+      emit(ResetCodeSent(message: message, email: event.email));
+    } catch (e) {
+      emit(AuthError(message: e.toString()));
+      //  Unauthenticated
+      emit(const AuthUnauthenticated());
+    }
+  }
+
+  // Verify Reset Code Handler
+  Future<void> _onVerifyResetCodeRequested(
+    VerifyCodeRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
+
+    try {
+      final isValid = await _authRepo.verifyEmailCode(event.email, event.otp);
+
+      if (isValid) {
+        emit(ResetCodeVerified(email: event.email, otp: event.otp));
+      } else {
+        emit(const AuthError(message: "Invalid verification code"));
+        emit(const AuthUnauthenticated());
+      }
+    } catch (e) {
+      emit(AuthError(message: e.toString()));
+      emit(const AuthUnauthenticated());
+    }
+  }
+
+  // Reset Password Handler
+  Future<void> _onResetPasswordRequested(
+    ResetPasswordRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
+
+    try {
+      final message = await _authRepo.resetPassword(
+        email: event.email,
+        otp: event.otp,
+        newPassword: event.newPassword,
+        confirmPassword: event.confirmPassword,
+      );
+
+      emit(PasswordResetSuccess(message: message));
+    } catch (e) {
+      emit(AuthError(message: e.toString()));
+      emit(const AuthUnauthenticated());
+    }
   }
 }

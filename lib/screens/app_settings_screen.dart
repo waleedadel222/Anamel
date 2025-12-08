@@ -159,7 +159,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
           // Delete Account
           BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              if (state is DeleteAccountSuccess) {
+              if (state is AuthDeleteAccountSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text("Account deleted successfully."),
@@ -167,10 +167,10 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 );
                 // Navigate to login screen
                 GoRouter.of(context).pushReplacementNamed(AppRouting.login);
-              } else if (state is AuthFailure) {
+              } else if (state is AuthError) {
                 ScaffoldMessenger.of(
                   context,
-                ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+                ).showSnackBar(SnackBar(content: Text(state.message)));
               }
             },
             builder: (context, state) {
@@ -218,7 +218,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                             );
 
                             // delete account function
-                            context.read<AuthBloc>().add(DeleteUserAccount());
+                            // context.read<AuthBloc>().add(DeleteUserAccount());
                           },
                           child: const Text(
                             "Delete",

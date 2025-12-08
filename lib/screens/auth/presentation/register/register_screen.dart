@@ -3,12 +3,12 @@ import 'package:anamel/core/common_widgets/text_form_field_widget.dart';
 import 'package:anamel/core/const/app_const.dart';
 import 'package:anamel/core/routes/app_routing.dart';
 import 'package:anamel/core/styling/app_styles.dart';
-import 'package:anamel/screens/auth/presentation/register/register_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/common_widgets/rich_text_widget.dart';
 import '../../domain/auth_bloc.dart';
 import '../../domain/auth_event.dart';
 import '../../domain/auth_state.dart';
@@ -23,7 +23,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreen extends State<RegisterScreen> {
   final registerFormKey = GlobalKey<FormState>();
 
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -34,7 +35,6 @@ class _RegisterScreen extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = context.read<AuthBloc>();
 
     return Scaffold(
       body: Form(
@@ -46,16 +46,23 @@ class _RegisterScreen extends State<RegisterScreen> {
             padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
             child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
-                if (state is AuthSuccess) {
+                if (state is AuthAuthenticated) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Register Successful')),
                   );
-                  // go to main screen
-                  GoRouter.of(context).pushReplacementNamed(AppRouting.main);
-                } else if (state is AuthFailure) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+                  // // go to main screen
+                  // GoRouter.of(context).pushReplacementNamed(AppRouting.main);
+
+                  // go to OTP screen
+                  GoRouter.of(context).pushReplacementNamed(AppRouting.otpVerification);
+
+                } else if (state is AuthError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.message),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
                 }
               },
 
@@ -80,15 +87,31 @@ class _RegisterScreen extends State<RegisterScreen> {
 
                     SizedBox(height: 48.h),
 
-                    // username text field
+                    // first name text field
                     TextFormFieldWidget(
-                      hintText: "username",
+                      hintText: "First Name",
                       textInputType: TextInputType.name,
-                      controller: usernameController,
+                      controller: firstNameController,
                       prefixIcon: Icon(Icons.person),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "Please enter your name";
+                          return "Please enter your first name";
+                        }
+                        return null;
+                      },
+                    ),
+
+                    SizedBox(height: 20.h),
+
+                    // last name text field
+                    TextFormFieldWidget(
+                      hintText: "Last Name",
+                      textInputType: TextInputType.name,
+                      controller: lastNameController,
+                      prefixIcon: Icon(Icons.person),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please enter your last name";
                         }
                         return null;
                       },
@@ -188,11 +211,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                           ? null
                           : () {
                               if (registerFormKey.currentState!.validate()) {
-                                authBloc.add(
-                                  RegisterUser(
-                                    usernameController.text.trim(),
-                                    emailController.text.trim(),
-                                    passwordController.text.trim(),
+                                context.read<AuthBloc>().add(
+                                  RegisterRequested(
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text,
+                                    passwordConfirmation:
+                                        confirmPasswordController.text,
+                                    firstName: firstNameController.text.trim(),
+                                    lastName: lastNameController.text.trim(),
                                   ),
                                 );
                               }
@@ -211,7 +237,18 @@ class _RegisterScreen extends State<RegisterScreen> {
                     SizedBox(height: 20.h),
 
                     // second part of register screen
-                    RegisterOptions(),
+                    // RegisterOptions(),
+
+                    // already have account ?
+                    RichTextWidget(
+                      mainText: "already have account ? ",
+                      subText: "Login",
+                      onTap: () {
+                        GoRouter.of(context).pushReplacementNamed(AppRouting.login);
+                      },
+                    ),
+
+                    SizedBox(height: 24.h),
                   ],
                 );
               },

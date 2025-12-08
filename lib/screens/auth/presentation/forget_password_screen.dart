@@ -20,15 +20,18 @@ class ForgetPasswordScreen extends StatefulWidget {
 }
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  void goToLoginScreen() {
-    GoRouter.of(context).pushReplacementNamed(AppRouting.login);
-  }
-
   @override
   Widget build(BuildContext context) {
     final forgetFormKey = GlobalKey<FormState>();
 
     final TextEditingController emailController = TextEditingController();
+
+    void goToOTPScreen() {
+      GoRouter.of(context).pushReplacementNamed(
+        AppRouting.otpVerification,
+        extra: emailController.text.trim(),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -36,7 +39,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            goToLoginScreen();
+            // go back To Login Screen
+            GoRouter.of(context).pushReplacementNamed(AppRouting.login);
           },
         ),
       ),
@@ -45,18 +49,21 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         padding: const EdgeInsets.all(16),
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
-            if (state is PasswordResetSuccess) {
-              // go back to login screen
-              goToLoginScreen();
+            if (state is ResetCodeSent) {
+              // go back to otp screen
+              goToOTPScreen();
 
               // show success message
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text(state.message)));
-            } else if (state is AuthFailure) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+            } else if (state is AuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.red,
+                ),
+              );
             }
           },
           builder: (context, state) {
@@ -64,7 +71,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               key: forgetFormKey,
               autovalidateMode: AutovalidateMode.onUnfocus,
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   // forget title text
@@ -108,8 +114,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     onButtonTap: () {
                       if (forgetFormKey.currentState!.validate()) {
                         // function to send code to the email
+
                         context.read<AuthBloc>().add(
-                          ForgotPasswordEvent(emailController.text.trim()),
+                          SendResetCodeRequested(
+                            email: emailController.text.trim(),
+                          ),
                         );
                       }
                     },

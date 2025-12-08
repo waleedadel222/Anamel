@@ -84,16 +84,16 @@ class ProfileScreen extends StatelessWidget {
           // logout
           BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              if (state is AuthLogOutSuccess) {
+              if (state is LogoutRequested) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text("Logged out successfully")),
                 );
                 // Navigate to login screen
                 GoRouter.of(context).pushReplacementNamed(AppRouting.login);
-              } else if (state is AuthFailure) {
+              } else if (state is AuthError) {
                 ScaffoldMessenger.of(
                   context,
-                ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+                ).showSnackBar(SnackBar(content: Text(state.message)));
               }
             },
             builder: (context, state) {
@@ -137,7 +137,7 @@ class ProfileScreen extends StatelessWidget {
                             }
 
                             // logout user
-                            context.read<AuthBloc>().add(LogoutUser());
+                            context.read<AuthBloc>().add(LogoutRequested());
                           },
                           child: const Text(
                             "Yes",

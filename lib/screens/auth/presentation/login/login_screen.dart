@@ -8,10 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/common_widgets/rich_text_widget.dart';
 import '../../domain/auth_bloc.dart';
 import '../../domain/auth_event.dart';
 import '../../domain/auth_state.dart';
-import 'login_options.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -31,8 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = context.read<AuthBloc>();
-
     return Scaffold(
       body: Form(
         key: loginFormKey,
@@ -44,19 +42,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
             child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
-                if (state is AuthSuccess) {
-                  // ProfileScreen(userData: state.userData),
-
+                if (state is AuthAuthenticated) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Login Successful')),
                   );
                   // go to main screen
                   GoRouter.of(context).pushReplacementNamed(AppRouting.main);
-                } else if (state is AuthFailure) {
-
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+                } else if (state is AuthError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.message),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
                 }
               },
 
@@ -124,10 +122,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
-                        } else if (!AppConst.isValidPassword(value)) {
-                          return "Password should has at least 8 characters,\n"
-                              "an uppercase letter,a lowercase letter,\n and a number";
                         }
+                        // } else if (!AppConst.isValidPassword(value)) {
+                        //   return "Password should has at least 8 characters,\n"
+                        //       "an uppercase letter,a lowercase letter,\n and a number";
+                        // }
                         return null;
                       },
                     ),
@@ -142,11 +141,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           ? null // disable button when loading
                           : () {
                               if (loginFormKey.currentState!.validate()) {
-
-                                authBloc.add(
-                                  LoginUser(
-                                    emailController.text.trim(),
-                                    passwordController.text.trim(),
+                                context.read<AuthBloc>().add(
+                                  LoginRequested(
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text,
                                   ),
                                 );
                               }
@@ -184,10 +182,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
 
-                    SizedBox(height: 24.h),
+                    SizedBox(height: 32.h),
 
                     // second part of the screen
-                    LoginOptions(),
+                    // LoginOptions(),
+                    // do not have account ?
+                    RichTextWidget(
+                      mainText: "Don’t have an account? ",
+                      subText: "Sign Up",
+                      onTap: () {
+                        GoRouter.of(
+                          context,
+                        ).pushReplacementNamed(AppRouting.register);
+                      },
+                    ),
+                    SizedBox(height: 24.h),
                   ],
                 );
               },
