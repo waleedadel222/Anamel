@@ -34,56 +34,50 @@ class ProductCard extends StatelessWidget {
           children: [
             InkWell(
               onTap: onTap,
-              child: Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 150,
-                        child: Text(
-                          textAlign: TextAlign.center,
-                          title,
-                          style: AppStyles.text20simiBold.copyWith(
-                            fontSize: 16,
-                          ),
-                          maxLines: 2,
-                        ),
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 150,
                       child: Text(
                         textAlign: TextAlign.center,
-                        " \$$price",
-                        style: AppStyles.text20simiBold.copyWith(
-                          fontSize: 13.sp,
-                        ),
+                        title,
+                        style: AppStyles.text20simiBold.copyWith(fontSize: 16),
+                        maxLines: 2,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 31,
-                        height: 18,
+                  ),
 
-                        child: RatingBar.builder(
-                          itemSize: 20,
-                          initialRating: 4,
-                          minRating: 1,
-                          direction: Axis.vertical,
-                          itemCount: 5,
-                          itemBuilder: (context, _) =>
-                              Icon(Icons.star, color: Colors.amber),
-                          onRatingUpdate: (rating) {},
-                        ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      " \$$price",
+                      style: AppStyles.text20simiBold.copyWith(fontSize: 13.sp),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 31,
+                      height: 18,
+
+                      child: RatingBar.builder(
+                        itemSize: 20,
+                        initialRating: 4,
+                        minRating: 1,
+                        direction: Axis.vertical,
+                        itemCount: 5,
+                        itemBuilder: (context, _) =>
+                            Icon(Icons.star, color: Colors.amber),
+                        onRatingUpdate: (rating) {},
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
 

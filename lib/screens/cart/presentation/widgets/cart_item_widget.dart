@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../model/cart_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../model/cart_item_model.dart';
 
 class CartItemCard extends StatelessWidget {
   final Items item;
@@ -23,7 +22,7 @@ class CartItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 145.sp,
+      height: 150.h,
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       decoration: BoxDecoration(
         boxShadow: [
@@ -32,7 +31,6 @@ class CartItemCard extends StatelessWidget {
             blurRadius: 10,
             spreadRadius: 1,
             offset: Offset(0, 4.sp),
-          )
           ),
         ],
         color: Colors.white,
@@ -52,20 +50,12 @@ class CartItemCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 12.sp),
+                  SizedBox(height: 12.h),
                   Text(
                     "${item.totalPrice?.toStringAsFixed(2) ?? '0.00'} EGP",
-                  Text(item.name, style: AppStyles.bodyStyle),
-
-                  SizedBox(height: 12.sp),
-
-                  Text(
-                    "${item.price * item.quantity} EGP",
-                    style: AppStyles.bodyStyle.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: AppStyles.bodyStyle,
                   ),
-                  SizedBox(height: 12.sp),
+                  SizedBox(height: 12.h),
 
                   // Item Quantity + Quantity Buttons
                   // Item Quantity +  Quantity Buttons
@@ -75,12 +65,11 @@ class CartItemCard extends StatelessWidget {
                       SizedBox(width: 20.sp),
                       Text(
                         "${item.quantity ?? 0}",
-                        "${item.quantity}",
                         style: AppStyles.bodyStyle.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(width: 20.sp),
+                      SizedBox(width: 20.w),
                       QuantityButton(icon: Icons.add, onPressed: onIncrease),
                     ],
                   ),
@@ -88,53 +77,56 @@ class CartItemCard extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 16.sp),
+          SizedBox(width: 16.w),
 
           // Item Image + Delete Button
           Stack(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
-                ),
-                child: item.imageUrl != null && item.imageUrl!.isNotEmpty
-                    ? CachedNetworkImage(
-                  imageUrl: item.imageUrl!,
-                  width: 145.sp,
-                  height: 145.sp,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => Container(
-                    width: 145.sp,
-                    height: 145.sp,
-                    color: Colors.grey[200],
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: Theme.of(context).primaryColor,
-                        strokeWidth: 2,
-                      ),
-                    ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
                   ),
-                  errorWidget: (context, url, error) => Container(
-                    width: 145.sp,
-                    height: 145.sp,
-                    color: Colors.grey[200],
-                    child: Icon(
-                      Icons.image_not_supported,
-                      color: Colors.grey[400],
-                      size: 50,
-                    ),
-                  ),
-                )
-                    : Container(
-                  width: 145.sp,
-                  height: 145.sp,
-                  color: Colors.grey[200],
-                  child: Icon(
-                    Icons.image,
-                    color: Colors.grey[400],
-                    size: 50,
-                  ),
+                  child: item.imageUrl != null && item.imageUrl!.isNotEmpty
+                      ? CachedNetworkImage(
+                          imageUrl: item.imageUrl!,
+                          width: 140.w,
+                          height: 130.h,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => Container(
+                            width: 145.w,
+                            height: 145.h,
+                            color: Colors.grey[200],
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: Theme.of(context).primaryColor,
+                                strokeWidth: 2,
+                              ),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Container(
+                            width: 140.w,
+                            height: 130.h,
+                            color: Colors.grey[200],
+                            child: Icon(
+                              Icons.image_not_supported,
+                              color: Colors.grey[400],
+                              size: 50,
+                            ),
+                          ),
+                        )
+                      : Container(
+                          width: 140.w,
+                          height: 130.h,
+                          color: Colors.grey[200],
+                          child: Icon(
+                            Icons.image,
+                            color: Colors.grey[400],
+                            size: 50,
+                          ),
+                        ),
                 ),
               ),
               Positioned(
@@ -143,8 +135,8 @@ class CartItemCard extends StatelessWidget {
                 child: GestureDetector(
                   onTap: onDelete,
                   child: Container(
-                    width: 30.sp,
-                    height: 30.sp,
+                    width: 30.w,
+                    height: 30.h,
                     decoration: BoxDecoration(
                       color: Colors.white38,
                       borderRadius: BorderRadius.circular(8),

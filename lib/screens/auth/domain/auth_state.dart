@@ -20,7 +20,7 @@ class AuthLoading extends AuthState {
 
 // Authenticated State
 class AuthAuthenticated extends AuthState {
-  final UserModel user;
+  final dynamic user;
 
   const AuthAuthenticated({required this.user});
 
@@ -53,16 +53,12 @@ class AuthError extends AuthState {
   List<Object?> get props => [message];
 }
 
-
 // Reset Code Sent State
 class ResetCodeSent extends AuthState {
   final String message;
   final String email;
 
-  const ResetCodeSent({
-    required this.message,
-    required this.email,
-  });
+  const ResetCodeSent({required this.message, required this.email});
 
   @override
   List<Object?> get props => [message, email];
@@ -73,10 +69,7 @@ class ResetCodeVerified extends AuthState {
   final String email;
   final String otp;
 
-  const ResetCodeVerified({
-    required this.email,
-    required this.otp,
-  });
+  const ResetCodeVerified({required this.email, required this.otp});
 
   @override
   List<Object?> get props => [email, otp];

@@ -140,14 +140,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       onButtonTap: isLoading
                           ? null // disable button when loading
                           : () {
-                              if (loginFormKey.currentState!.validate()) {
-                                context.read<AuthBloc>().add(
-                                  LoginRequested(
-                                    email: emailController.text.trim(),
-                                    password: passwordController.text,
-                                  ),
-                                );
-                              }
+                              // if (loginFormKey.currentState!.validate()) {
+                              //   context.read<AuthBloc>().add(
+                              //     LoginRequested(
+                              //       email: emailController.text.trim(),
+                              //       password: passwordController.text,
+                              //     ),
+                              //   );
+                              // }
+                              GoRouter.of(context).pushNamed(AppRouting.main);
                             },
                     ),
 
@@ -166,10 +167,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.topRight,
                       child: InkWell(
                         onTap: () {
-                          // go to forgetPassword screen
-                          GoRouter.of(
-                            context,
-                          ).pushNamed(AppRouting.forgotPassword);
+                          // // go to forgetPassword screen
+                          // GoRouter.of(
+                          //   context,
+                          // ).pushNamed(AppRouting.forgotPassword);
                         },
                         child: Text(
                           "Forget Password?",

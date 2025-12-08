@@ -1,4 +1,7 @@
 // lib/bloc/auth_bloc.dart
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../data/repository/auth_repo.dart';
 import '../model/auth_request.dart';
@@ -42,7 +45,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
       );
 
-      final user = await _authRepo.login(loginRequest);
+      final Response user = await _authRepo.login(loginRequest);
+      log(user.data.toString());
 
       // save token to SharedPreferences
       // await _saveToken(user.token);

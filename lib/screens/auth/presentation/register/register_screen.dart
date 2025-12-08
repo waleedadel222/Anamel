@@ -35,7 +35,6 @@ class _RegisterScreen extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Form(
         key: registerFormKey,
@@ -54,8 +53,9 @@ class _RegisterScreen extends State<RegisterScreen> {
                   // GoRouter.of(context).pushReplacementNamed(AppRouting.main);
 
                   // go to OTP screen
-                  GoRouter.of(context).pushReplacementNamed(AppRouting.otpVerification);
-
+                  GoRouter.of(
+                    context,
+                  ).pushReplacementNamed(AppRouting.otpVerification);
                 } else if (state is AuthError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -161,10 +161,11 @@ class _RegisterScreen extends State<RegisterScreen> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
-                        } else if (!AppConst.isValidPassword(value)) {
-                          return "Password should has at least 8 characters,\n"
-                              "an uppercase letter,a lowercase letter,\n and a number";
                         }
+                        // } else if (!AppConst.isValidPassword(value)) {
+                        //   return "Password should has at least 8 characters,\n"
+                        //       "an uppercase letter,a lowercase letter,\n and a number";
+                        // }
                         return null;
                       },
                     ),
@@ -210,18 +211,21 @@ class _RegisterScreen extends State<RegisterScreen> {
                       onButtonTap: isLoading
                           ? null
                           : () {
-                              if (registerFormKey.currentState!.validate()) {
-                                context.read<AuthBloc>().add(
-                                  RegisterRequested(
-                                    email: emailController.text.trim(),
-                                    password: passwordController.text,
-                                    passwordConfirmation:
-                                        confirmPasswordController.text,
-                                    firstName: firstNameController.text.trim(),
-                                    lastName: lastNameController.text.trim(),
-                                  ),
-                                );
-                              }
+                              // if (registerFormKey.currentState!.validate()) {
+                              //   context.read<AuthBloc>().add(
+                              //     RegisterRequested(
+                              //       email: emailController.text.trim(),
+                              //       password: passwordController.text,
+                              //       passwordConfirmation:
+                              //           confirmPasswordController.text,
+                              //       firstName: firstNameController.text.trim(),
+                              //       lastName: lastNameController.text.trim(),
+                              //     ),
+                              //   );
+                              // }
+                              GoRouter.of(
+                                context,
+                              ).pushReplacementNamed(AppRouting.main);
                             },
                     ),
 
@@ -244,7 +248,9 @@ class _RegisterScreen extends State<RegisterScreen> {
                       mainText: "already have account ? ",
                       subText: "Login",
                       onTap: () {
-                        GoRouter.of(context).pushReplacementNamed(AppRouting.login);
+                        GoRouter.of(
+                          context,
+                        ).pushReplacementNamed(AppRouting.login);
                       },
                     ),
 

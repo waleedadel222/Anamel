@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 import '../../../../core/Apis/api_constans.dart';
@@ -10,25 +12,26 @@ class AuthRepo {
   AuthRepo() : _dio = Dio();
 
   // Login {
-  Future<UserModel> login(LoginRequest requestData) async {
+  Future<Response> login(LoginRequest requestData) async {
     try {
       final response = await _dio.post(
         ApiConstans.login,
         data: requestData.toJson(),
+        options: Options(headers: {'Content-Type': 'application/json'}),
       );
-      return UserModel.fromJson(response.data['data']);
+      log("Response: ${response.data}");
+      // return UserModel.fromJson(response.data['data']);
 
-
-      // if (response.statusCode == 200) {
-      //   return UserModel.fromJson(response.data['data']);
-      // } else {
-      //   throw DioException(
-      //     requestOptions: response.requestOptions,
-      //     response: response,
-      //     type: DioExceptionType.badResponse,
-      //     error: 'Login failed',
-      //   );
-      // }
+      if (response.statusCode == 200) {
+        return response.data['data'];
+      } else {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
+          error: 'Login failed',
+        );
+      }
     } on DioException catch (e) {
       throw _handleError(e);
     }

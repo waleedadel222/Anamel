@@ -30,12 +30,12 @@ class ProfileScreen extends StatelessWidget {
         children: [
           // user info
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(16.0),
             child: Card(
               elevation: 3,
               child: ListTile(
-                title: Text("userModel.name"),
-                subtitle: Text("userModel.email"),
+                title: Text("ahmed waleed "),
+                subtitle: Text("ahmedwaleed1092@gmail.com"),
               ),
             ),
           ),
@@ -53,10 +53,10 @@ class ProfileScreen extends StatelessWidget {
             leading: Icon(Icons.lock),
             title: Text("Change Password"),
             trailing: Icon(Icons.arrow_right),
-            onTap: () {
-              // navigate to change password screen
-              GoRouter.of(context).pushNamed(AppRouting.createNewPassword);
-            },
+            // onTap: () {
+            //   // navigate to change password screen
+            //   GoRouter.of(context).pushNamed(AppRouting.createNewPassword);
+            // },
           ),
 
           // address
@@ -64,10 +64,10 @@ class ProfileScreen extends StatelessWidget {
             leading: Icon(Icons.location_on),
             title: Text("Addresses"),
             trailing: Icon(Icons.arrow_right),
-            onTap: () {
-              // navigate to address screen
-              GoRouter.of(context).pushNamed(AppRouting.addresses);
-            },
+            // onTap: () {
+            //   // navigate to address screen
+            //   GoRouter.of(context).pushNamed(AppRouting.addresses);
+            // },
           ),
 
           // order history
@@ -126,18 +126,21 @@ class ProfileScreen extends StatelessWidget {
                             // close dialog
                             GoRouter.of(context).pop();
 
-                            if (isLoading) {
-                              // show loading dialog
-                              showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (_) =>
-                                    Center(child: CircularProgressIndicator()),
-                              );
-                            }
+                            // if (isLoading) {
+                            //   // show loading dialog
+                            //   showDialog(
+                            //     barrierDismissible: false,
+                            //     context: context,
+                            //     builder: (_) =>
+                            //         Center(child: CircularProgressIndicator()),
+                            //   );
+                            // }
 
-                            // logout user
-                            context.read<AuthBloc>().add(LogoutRequested());
+                            // // logout user
+                            // context.read<AuthBloc>().add(LogoutRequested());
+                            GoRouter.of(
+                              context,
+                            ).pushReplacementNamed(AppRouting.login);
                           },
                           child: const Text(
                             "Yes",

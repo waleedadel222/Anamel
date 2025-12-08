@@ -1,10 +1,11 @@
 class CartModel {
   CartModel({
-      this.id, 
-      this.userId, 
-      this.items, 
-      this.totalAmount, 
-      this.totalItems,});
+    this.id,
+    this.userId,
+    this.items,
+    this.totalAmount,
+    this.totalItems,
+  });
 
   CartModel.fromJson(dynamic json) {
     id = json['id'];
@@ -23,17 +24,19 @@ class CartModel {
   List<Items>? items;
   num? totalAmount;
   num? totalItems;
-CartModel copyWith({  num? id,
-  String? userId,
-  List<Items>? items,
-  num? totalAmount,
-  num? totalItems,
-}) => CartModel(  id: id ?? this.id,
-  userId: userId ?? this.userId,
-  items: items ?? this.items,
-  totalAmount: totalAmount ?? this.totalAmount,
-  totalItems: totalItems ?? this.totalItems,
-);
+  CartModel copyWith({
+    num? id,
+    String? userId,
+    List<Items>? items,
+    num? totalAmount,
+    num? totalItems,
+  }) => CartModel(
+    id: id ?? this.id,
+    userId: userId ?? this.userId,
+    items: items ?? this.items,
+    totalAmount: totalAmount ?? this.totalAmount,
+    totalItems: totalItems ?? this.totalItems,
+  );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
@@ -45,18 +48,18 @@ CartModel copyWith({  num? id,
     map['totalItems'] = totalItems;
     return map;
   }
-
 }
 
 class Items {
   Items({
-      this.id, 
-      this.productId, 
-      this.productName, 
-      this.unitPrice, 
-      this.quantity, 
-      this.totalPrice, 
-      this.imageUrl,});
+    this.id,
+    this.productId,
+    this.productName,
+    this.unitPrice,
+    this.quantity = 1,
+    this.totalPrice,
+    this.imageUrl,
+  });
 
   Items.fromJson(dynamic json) {
     id = json['id'];
@@ -71,24 +74,26 @@ class Items {
   num? productId;
   String? productName;
   num? unitPrice;
-  num? quantity;
+  num quantity = 1;
   num? totalPrice;
   String? imageUrl;
-Items copyWith({  num? id,
-  num? productId,
-  String? productName,
-  num? unitPrice,
-  num? quantity,
-  num? totalPrice,
-  String? imageUrl,
-}) => Items(  id: id ?? this.id,
-  productId: productId ?? this.productId,
-  productName: productName ?? this.productName,
-  unitPrice: unitPrice ?? this.unitPrice,
-  quantity: quantity ?? this.quantity,
-  totalPrice: totalPrice ?? this.totalPrice,
-  imageUrl: imageUrl ?? this.imageUrl,
-);
+  Items copyWith({
+    num? id,
+    num? productId,
+    String? productName,
+    num? unitPrice,
+    num? quantity,
+    num? totalPrice,
+    String? imageUrl,
+  }) => Items(
+    id: id ?? this.id,
+    productId: productId ?? this.productId,
+    productName: productName ?? this.productName,
+    unitPrice: unitPrice ?? this.unitPrice,
+    quantity: quantity ?? this.quantity,
+    totalPrice: totalPrice ?? this.totalPrice,
+    imageUrl: imageUrl ?? this.imageUrl,
+  );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
@@ -100,5 +105,4 @@ Items copyWith({  num? id,
     map['imageUrl'] = imageUrl;
     return map;
   }
-
 }

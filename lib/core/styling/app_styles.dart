@@ -21,7 +21,6 @@ class AppStyles {
     fontWeight: FontWeight.w600,
   );
 
-
   static TextStyle logoTitleStyle = TextStyle(
     fontFamily: AppFonts.poppinsFont,
     fontSize: 24.sp,
@@ -30,22 +29,19 @@ class AppStyles {
   static TextStyle logoSubtitleStyle = TextStyle(
     fontFamily: AppFonts.poppinsFont,
     fontSize: 15.sp,
-    fontWeight: FontWeight.w300
+    fontWeight: FontWeight.w300,
   );
 
-//---- Cart
-  static TextStyle bodyStyle=TextStyle(
+  //---- Cart
+  static TextStyle bodyStyle = TextStyle(
     fontFamily: AppFonts.cairoFont,
-    fontSize: 18
+    fontSize: 18,
   );
 
   static TextStyle smallCaptionStyle = TextStyle(
     fontFamily: AppFonts.cairoFont,
     fontSize: 16.sp,
   );
-
-
-
 
   //-------- pin code
   static TextStyle pinCodeStyle = TextStyle(
@@ -76,6 +72,5 @@ class AppStyles {
     fontFamily: AppFonts.primaryFont,
     fontSize: 20.sp,
     fontWeight: FontWeight.w600,
-    color: LightThemeColors.blackColor,
   );
 }

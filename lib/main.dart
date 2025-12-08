@@ -30,7 +30,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  final initialRoute = AppRouting.main;
+  final initialRoute = AppRouting.onboarding;
   // final initialRoute = await _getInitialRoute();
 
   runApp(
@@ -88,8 +88,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<HomeCubit>(create: (context) => HomeCubit()),
         BlocProvider<ProductCubit>(create: (context) => ProductCubit()),
 
-    BlocProvider(
-
+        BlocProvider(
           create: (_) => CartBloc(CartRepository(Dio()))..add(LoadCartEvent()),
         ),
       ],

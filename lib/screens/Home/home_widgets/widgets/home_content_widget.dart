@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:anamel/core/const/app_color.dart';
 import 'package:anamel/core/const/app_styles.dart';
 import 'package:anamel/core/routes/app_routing.dart';
@@ -122,14 +124,22 @@ class HomeContentState extends State<HomeContent> {
                   itemBuilder: (context, index) {
                     final product = state.productList[index];
 
-                    return OutdoorCard(
-                      onTapIcon: () {},
-                      collection: product,
+                    return InkWell(
                       onTap: () {
                         GoRouter.of(
                           context,
                         ).pushNamed(AppRouting.productDetails, extra: product);
                       },
+                      child: OutdoorCard(
+                        collection: product,
+                        onTap: () {
+                          log(product.toString());
+                          GoRouter.of(context).pushNamed(
+                            AppRouting.productDetails,
+                            extra: product,
+                          );
+                        },
+                      ),
                     );
                   },
                 ),
