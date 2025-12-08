@@ -1,4 +1,3 @@
-import 'package:anamel/core/styling/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_fonts.dart';
@@ -22,6 +21,7 @@ class AppStyles {
     fontWeight: FontWeight.w600,
   );
 
+
   static TextStyle logoTitleStyle = TextStyle(
     fontFamily: AppFonts.poppinsFont,
     fontSize: 24.sp,
@@ -30,7 +30,7 @@ class AppStyles {
   static TextStyle logoSubtitleStyle = TextStyle(
     fontFamily: AppFonts.poppinsFont,
     fontSize: 15.sp,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w300
   );
 
 //---- Cart
@@ -70,12 +70,5 @@ class AppStyles {
     fontFamily: AppFonts.primaryFont,
     fontSize: 16.sp,
     fontWeight: FontWeight.normal,
-  );
-
-  static TextStyle text20simiBold = TextStyle(
-    fontFamily: AppFonts.secondaryFont,
-    fontSize: 20.sp,
-    fontWeight: FontWeight.w600,
-    color: LightThemeColors.blackColor,
   );
 }
