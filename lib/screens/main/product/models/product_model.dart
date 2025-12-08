@@ -7,8 +7,10 @@ class ProductModel {
   String description;
   String category;
   int rating;
+  int categoryId;
 
   ProductModel({
+    required this.categoryId,
     required this.rating,
     required this.id,
     required this.name,
@@ -21,6 +23,7 @@ class ProductModel {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
+      categoryId: json['categoryId'],
       id: json['id'],
       name: json['name'],
       price: json['price'],

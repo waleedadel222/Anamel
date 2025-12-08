@@ -73,13 +73,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
             color: Color.fromARGB(255, 93, 96, 70),
           ),
         ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.favorite_border,
-            color: Color.fromARGB(255, 93, 96, 70),
-          ),
-        ),
       ];
     }
   }

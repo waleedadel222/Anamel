@@ -1,28 +1,36 @@
 import 'package:anamel/core/const/app_styles.dart';
-import 'package:anamel/screens/Home/home_models/models/outdoor_card_model.dart';
+import 'package:anamel/screens/main/product/models/product_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OutdoorCard extends StatelessWidget {
-  final OutdoorCardModel collection;
+  final ProductModel collection;
   final VoidCallback? onTap;
+  final VoidCallback onTapIcon;
 
-  const OutdoorCard({Key? key, required this.collection, this.onTap})
-    : super(key: key);
+  const OutdoorCard({
+    Key? key,
+    required this.collection,
+    this.onTap,
+    required this.onTapIcon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: Container(
-        width: 160,
-        height: 270,
+        width: 160.w,
+        height: 250.h,
         margin: EdgeInsets.only(left: 12),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
+              color: Colors.grey.withValues(alpha: .2),
               blurRadius: 6,
               offset: Offset(2, 2),
             ),
@@ -31,34 +39,56 @@ class OutdoorCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 150,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage(collection.imagePath),
-                  fit: BoxFit.cover,
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: CachedNetworkImage(
+                    imageUrl: collection.imageUrl,
+                    width: 160.w,
+                    height: 150.h,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
-              ),
+                Positioned(
+                  top: 5,
+                  left: 5,
+                  child: IconButton(
+                    onPressed: onTapIcon,
+                    icon: Icon(Icons.add_shopping_cart),
+                  ),
+                ),
+              ],
             ),
 
             Padding(
-              padding: EdgeInsets.all(8),
+              padding: EdgeInsets.all(8.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(collection.subtitle, style: AppStyles.subtitleStyle),
-                  SizedBox(height: 4),
+                  SizedBox(
+                    height: 30.h,
+                    width: 75.w,
+                    child: Text(
+                      collection.description,
+                      maxLines: 1,
+                      style: AppStyles.subtitleStyle,
+                    ),
+                  ),
+
                   Text(
-                    collection.title,
+                    collection.name,
                     style: AppStyles.titleStyles,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(height: 4),
                   Text(
-                    collection.price,
+                    collection.price.toString(),
                     style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
                   ),
                   SizedBox(height: 4),

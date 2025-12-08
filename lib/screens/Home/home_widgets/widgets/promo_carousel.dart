@@ -2,6 +2,7 @@ import 'package:anamel/screens/home/home_models/models/card_model.dart';
 import 'package:anamel/screens/home/home_widgets/widgets/card_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PromoCarousel extends StatelessWidget {
   const PromoCarousel({Key? key}) : super(key: key);
@@ -12,9 +13,9 @@ class PromoCarousel extends StatelessWidget {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-            height: 160,
+            height: 160.h,
 
-            viewportFraction: 0.9,
+            viewportFraction: 1,
             enableInfiniteScroll: true,
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 4),

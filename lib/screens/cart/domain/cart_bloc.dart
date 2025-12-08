@@ -8,84 +8,121 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   CartBloc(this.repository) : super(CartInitial()) {
 
-    // Load Cart Event
+    /// load cart
     on<LoadCartEvent>((event, emit) async {
       try {
         emit(CartLoading());
+        final cart = await repository.getCart();
 
-
-        final items = repository.getCartItems();
-
-        if (items.isEmpty) {
+        if (cart.items == null || cart.items!.isEmpty) {
           emit(CartEmpty());
         } else {
-          emit(CartLoaded(items));
+          emit(CartLoaded(
+            cartItems: cart.items!,
+            totalAmount: cart.totalAmount?.toDouble() ?? 0.0,
+            totalItems: cart.totalItems?.toInt() ?? 0,
+          ));
         }
       } catch (e) {
-        emit(CartError('Failed to load cart: ${e.toString()}'));
+        emit(CartError('Failed to load cart: $e'));
       }
     });
 
-    // Add to Cart Event
+    /// add item
     on<AddToCartEvent>((event, emit) async {
       try {
-        final currentState = state;
-
         emit(CartLoading());
-
-        repository.addToCart(event.item);
-        final items = repository.getCartItems();
-
-        emit(CartLoaded(items));
+        final cart = await repository.addItem(
+          productId: event.productId,
+          quantity: event.quantity,
+        );
+        emit(CartLoaded(
+          cartItems: cart.items!,
+          totalAmount: cart.totalAmount?.toDouble() ?? 0.0,
+          totalItems: cart.totalItems?.toInt() ?? 0,
+        ));
       } catch (e) {
-        emit(CartError('Failed to add item: ${e.toString()}'));
+        emit(CartError('Failed to add item: $e'));
       }
     });
 
-    // Remove from Cart Event
+    /// remove item
     on<RemoveFromCartEvent>((event, emit) async {
+      final current = state;
+      if (current is! CartLoaded) return;
+
       try {
         emit(CartLoading());
 
-        repository.removeFromCart(event.id);
-        final items = repository.getCartItems();
+        final item = current.cartItems.firstWhere(
+              (element) => element.id == event.itemId,
+        );
 
-        if (items.isEmpty) {
+        final cart = await repository.deleteItem(item.productId!.toInt());
+
+        if (cart.items == null || cart.items!.isEmpty) {
           emit(CartEmpty());
         } else {
-          emit(CartLoaded(items));
+          emit(CartLoaded(
+            cartItems: cart.items!,
+            totalAmount: cart.totalAmount?.toDouble() ?? 0.0,
+            totalItems: cart.totalItems?.toInt() ?? 0,
+          ));
         }
       } catch (e) {
-        emit(CartError('Failed to remove item: ${e.toString()}'));
+        emit(CartError('Failed to remove item: $e'));
       }
     });
 
-    // Increase Quantity Event
+    /// increase quantity
     on<IncreaseQuantityEvent>((event, emit) async {
       try {
-        repository.increaseQuantity(event.id);
-        final items = repository.getCartItems();
+        final current = state;
+        if (current is! CartLoaded) return;
 
-        emit(CartLoaded(items));
+        final item = current.cartItems.firstWhere((element) => element.id == event.itemId);
+        final newQty = (item.quantity ?? 0).toInt() + 1;
+
+        final cart = await repository.updateItemQuantity(
+          productId: item.productId!.toInt(),
+          newQuantity: newQty,
+        );
+
+        emit(CartLoaded(
+          cartItems: cart.items!,
+          totalAmount: cart.totalAmount?.toDouble() ?? 0.0,
+          totalItems: cart.totalItems?.toInt() ?? 0,
+        ));
       } catch (e) {
-        emit(CartError('Failed to increase quantity: ${e.toString()}'));
+        emit(CartError('Failed to increase quantity: $e'));
       }
     });
 
-    // Decrease Quantity Event
+    /// decrease quantity
     on<DecreaseQuantityEvent>((event, emit) async {
       try {
-        repository.decreaseQuantity(event.id);
-        final items = repository.getCartItems();
+        final current = state;
+        if (current is! CartLoaded) return;
 
-        // لو الـ item quantity بقى 0 نشيله
-        if (items.isEmpty) {
-          emit(CartEmpty());
-        } else {
-          emit(CartLoaded(items));
+        final item = current.cartItems.firstWhere((element) => element.id == event.itemId);
+        final newQty = (item.quantity ?? 0).toInt() - 1;
+
+        if (newQty <= 0) {
+          return;
         }
+
+        final cart = await repository.updateItemQuantity(
+          productId: item.productId!.toInt(),
+          newQuantity: newQty,
+        );
+
+        emit(CartLoaded(
+          cartItems: cart.items!,
+          totalAmount: cart.totalAmount?.toDouble() ?? 0.0,
+          totalItems: cart.totalItems?.toInt() ?? 0,
+        ));
       } catch (e) {
-        emit(CartError('Failed to decrease quantity: ${e.toString()}'));
+        emit(CartError('Failed to decrease quantity: $e'));
       }
     });
   }

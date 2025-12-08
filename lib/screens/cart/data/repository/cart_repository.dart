@@ -1,105 +1,73 @@
-import '../../model/cart_item_model.dart';
+import 'package:dio/dio.dart';
+import '../../../../core/Apis/api_constans.dart';
+import '../../model/cart_model.dart';
 
 class CartRepository {
-  // temporary dummy cart items
-  List<CartItemModel> cartItems =
-  [
-    CartItemModel(
-      id: 1,
-      name: "Necklace",
-      imagePath: "assets/images/necklace.jpg",
-      price: 120.0,
-      quantity: 1,
-    ),
-    CartItemModel(
-      id: 2,
-      name: "Rings",
-      imagePath:"assets/images/rings.jpg",
-      price: 100,
-      quantity: 1,
-    ),
-    CartItemModel(
-      id: 3,
-      name: "Bracelet",
-      imagePath: "assets/images/bracelet.jpg",
-      price: 160,
-      quantity: 2,
-    ),
-    CartItemModel(
-      id: 4,
-      name: "Necklace",
-      imagePath: "assets/images/necklace.jpg",
-      price: 120.0,
-      quantity: 1,
-    ),
-    CartItemModel(
-      id: 5,
-      name: "Rings",
-      imagePath:"assets/images/rings.jpg",
-      price: 100,
-      quantity: 1,
-    ),
-    CartItemModel(
-      id: 6,
-      name: "Bracelet",
-      imagePath: "assets/images/bracelet.jpg",
-      price: 160,
-      quantity: 2,
-    ),  CartItemModel(
-      id: 7,
-      name: "Necklace",
-      imagePath: "assets/images/necklace.jpg",
-      price: 120.0,
-      quantity: 1,
-    ),
-    CartItemModel(
-      id: 8,
-      name: "Rings",
-      imagePath:"assets/images/rings.jpg",
-      price: 100,
+  final Dio dio;
 
-      quantity: 1,
+  CartRepository(this.dio);
 
-    ),
-    CartItemModel(
-      id: 9,
-      name: "Bracelet",
-      imagePath: "assets/images/bracelet.jpg",
-      price: 160,
-      quantity: 2,
-    ),
-  ];
+  static const String baseUrl = "https://anamel.runasp.net/api";
+  static const String getCartUrl = "$baseUrl/Cart";
+  static const String addCartUrl = "$baseUrl/Cart/items";
+  static const String updateCartItemUrl = "$baseUrl/Cart/items"; // PUT /items/{productId}
+  static const String deleteCartUrl = "$baseUrl/Cart";
+  static const String deleteItemUrl = "$baseUrl/Cart/items";
 
+  Map<String, String> get headers => {
+    "Authorization": "Bearer ${ApiConstans.token}",
+    "Content-Type": "application/json",
+  };
 
-  List<CartItemModel> getCartItems() {
-    return cartItems;
+  ///  get cart
+  Future<CartModel> getCart() async {
+    final response = await dio.get(getCartUrl, options: Options(headers: headers));
+    return CartModel.fromJson(response.data);
   }
 
-  void addToCart(CartItemModel item) {
-    final existingItem = cartItems.firstWhere(
-          (e) => e.id == item.id,
-      orElse: () => CartItemModel(id: -1, name: '', imagePath: '', price: 0),
+  /// add item
+  Future<CartModel> addItem({required int productId, required int quantity}) async {
+    final response = await dio.post(
+      addCartUrl,
+      data: {
+        "productId": productId,
+        "quantity": quantity,
+      },
+      options: Options(headers: headers),
+    );
+    return CartModel.fromJson(response.data);
+  }
+
+  /// updated item quantity
+  Future<CartModel> updateItemQuantity({required int productId, required int newQuantity}) async {
+    final response = await dio.put(
+      "$updateCartItemUrl/$productId",
+      data: newQuantity,
+      options: Options(headers: headers),
+    );
+    return CartModel.fromJson(response.data);
+  }
+
+
+/// delete item
+  Future<CartModel> deleteItem(int productId) async {
+    final response = await dio.delete(
+      "$deleteItemUrl/$productId",
+      options: Options(
+        headers: headers,
+        validateStatus: (status) => status! < 500,
+      ),
     );
 
-    if (existingItem.id != -1) {
-      existingItem.quantity++;
-    } else {
-      cartItems.add(item);
+    if (response.statusCode == 204) {
+      return getCart();
     }
+
+    return CartModel.fromJson(response.data);
   }
 
-  void removeFromCart(int id) {
-    cartItems.removeWhere((item) => item.id == id);
-  }
-
-  void increaseQuantity(int id) {
-    cartItems.firstWhere((e) => e.id == id).quantity++;
-  }
-
-  void decreaseQuantity(int id) {
-    final item = cartItems.firstWhere((e) => e.id == id);
-    if (item.quantity > 1) {
-      item.quantity--;
-    }
+  /// delete cart
+  Future<void> deleteCart() async {
+    await dio.delete(deleteCartUrl, options: Options(headers: headers),);
   }
 }

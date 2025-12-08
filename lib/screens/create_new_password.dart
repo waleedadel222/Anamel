@@ -1,13 +1,10 @@
-import 'package:anamel/core/const/app_assets_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/common_widgets/main_elevated_button.dart';
 import '../core/common_widgets/text_form_field_widget.dart';
 import '../core/const/app_const.dart';
-import '../core/routes/app_routing.dart';
 import '../core/styling/app_styles.dart';
 
 class CreateNewPassword extends StatefulWidget {
@@ -176,15 +173,14 @@ class _CreateNewPassword extends State<CreateNewPassword> {
                   textOnButton: "Create Password",
                   onButtonTap: () {
                     if (updatePassFormKey.currentState!.validate()) {
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("pass")),);
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(const SnackBar(content: Text("pass")));
 
                       // go to login screen
                       // GoRouter.of(
                       //   context,
                       // ).pushReplacementNamed(AppRouting.login);
-
                     } else {
                       //  Validation failed
                       ScaffoldMessenger.of(context).showSnackBar(

@@ -27,7 +27,7 @@ class ProductCard extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Container(
         width: 350.w,
-        height: 112.h,
+        height: 152.h,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

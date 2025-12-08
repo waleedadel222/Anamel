@@ -1,5 +1,4 @@
-
-import '../model/cart_item_model.dart';
+import '../model/cart_model.dart';
 
 abstract class CartState {}
 
@@ -8,12 +7,15 @@ class CartInitial extends CartState {}
 class CartLoading extends CartState {}
 
 class CartLoaded extends CartState {
-  final List<CartItemModel> cartItems;
-  final double totalPrice;
+  final List<Items> cartItems;
+  final double totalAmount;
+  final int totalItems;
 
-  CartLoaded(this.cartItems)
-      : totalPrice = cartItems.fold(
-      0, (sum, item) => sum + (item.price * item.quantity));
+  CartLoaded({
+    required this.cartItems,
+    required this.totalAmount,
+    required this.totalItems,
+  });
 }
 
 class CartEmpty extends CartState {}

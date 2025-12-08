@@ -6,7 +6,7 @@ class GetProduct {
   Future<Response> fetchProduct() async {
     try {
       final response = await dio.get(
-        ApiConstans.getProduct,
+        ApiConstans.getProducts,
         options: Options(
           headers: {"Authorization": "Bearer ${ApiConstans.token}"},
         ),
