@@ -36,5 +36,5 @@ class ApiConstans {
   static const String deleteCategory = '$baseUrl/Categories/:id';
   static const String getPrductsByCategoryId = '$baseUrl/Products/category';
   static const String deleteProduct = "$baseUrl/Products/:id";
-  static const String getProduct = '$baseUrl/Products';
+  static const String getProducts = '$baseUrl/Products';
 }

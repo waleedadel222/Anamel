@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
       return _buildSearchResults(searchResults);
     } else {
       return SingleChildScrollView(
-        child: Column(children: [const PromoCarousel(), HomeContent()]),
+        child: Column(children: [PromoCarousel(), HomeContent()]),
       );
     }
   }
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Text(
               ' result of search about "$_searchQuery" (${results.length})',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
           if (results.isEmpty)

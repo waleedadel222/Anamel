@@ -1,3 +1,4 @@
+import 'package:anamel/screens/Home/cubit/home_cubit.dart';
 import 'package:anamel/screens/address/address_repository/address_repository.dart';
 import 'package:anamel/screens/address/domain/address_bloc.dart';
 import 'package:anamel/screens/auth/data/repository/auth_firebase_repository.dart';
@@ -26,8 +27,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  //final initialRoute = AppRouting.main;
-  final initialRoute = await _getInitialRoute();
+  final initialRoute = AppRouting.main;
+  // final initialRoute = await _getInitialRoute();
 
   runApp(
     ChangeNotifierProvider(
@@ -71,12 +72,14 @@ class MyApp extends StatelessWidget {
             userRepo: UserRepository(),
           ),
         ),
+
         BlocProvider<AddressBloc>(
           create: (context) => AddressBloc(repository: AddressRepository()),
         ),
         BlocProvider<CategoryCubitCubit>(
           create: (context) => CategoryCubitCubit(),
         ),
+        BlocProvider<HomeCubit>(create: (context) => HomeCubit()),
         BlocProvider<ProductCubit>(create: (context) => ProductCubit()),
 
         BlocProvider(
