@@ -71,4 +71,11 @@ class AppStyles {
     fontSize: 16.sp,
     fontWeight: FontWeight.normal,
   );
+
+  static TextStyle text20simiBold = TextStyle(
+    fontFamily: AppFonts.primaryFont,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w600,
+    color: LightThemeColors.blackColor,
+  );
 }

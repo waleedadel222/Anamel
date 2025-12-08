@@ -34,16 +34,22 @@ class DioHelper {
     }
   }
 
-  postRequest({
+  static Future<Response?> postRequest({
     required String endPionts,
+    Map<String, dynamic>? headers,
     required Map<String, dynamic> data,
   }) async {
     try {
-      final response = await dio!.post(endPionts, queryParameters: data);
+      final response = await dio!.post(
+        endPionts,
+        data: data,
+        options: Options(headers: headers),
+      );
       return response;
     } catch (e) {
       log(e.toString());
     }
+    return null;
   }
 
   updateRequest({

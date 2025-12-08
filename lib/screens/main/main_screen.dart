@@ -1,5 +1,7 @@
 import 'package:anamel/screens/main/category_screen.dart';
 import 'package:anamel/screens/main/home_screen.dart';
+import 'package:anamel/screens/Home/home_screen.dart';
+import 'package:anamel/screens/main/category/presentation/screens/category_screen.dart';
 import 'package:anamel/screens/main/profile_screen.dart';
 import 'package:flutter/material.dart';
 

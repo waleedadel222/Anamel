@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../model/cart_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../model/cart_item_model.dart';
 
 class CartItemCard extends StatelessWidget {
   final Items item;
@@ -32,6 +33,7 @@ class CartItemCard extends StatelessWidget {
             spreadRadius: 1,
             offset: Offset(0, 4.sp),
           )
+          ),
         ],
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -53,6 +55,12 @@ class CartItemCard extends StatelessWidget {
                   SizedBox(height: 12.sp),
                   Text(
                     "${item.totalPrice?.toStringAsFixed(2) ?? '0.00'} EGP",
+                  Text(item.name, style: AppStyles.bodyStyle),
+
+                  SizedBox(height: 12.sp),
+
+                  Text(
+                    "${item.price * item.quantity} EGP",
                     style: AppStyles.bodyStyle.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -60,24 +68,20 @@ class CartItemCard extends StatelessWidget {
                   SizedBox(height: 12.sp),
 
                   // Item Quantity + Quantity Buttons
+                  // Item Quantity +  Quantity Buttons
                   Row(
                     children: [
-                      QuantityButton(
-                        icon: Icons.remove,
-                        onPressed: onDecrease,
-                      ),
+                      QuantityButton(icon: Icons.remove, onPressed: onDecrease),
                       SizedBox(width: 20.sp),
                       Text(
                         "${item.quantity ?? 0}",
+                        "${item.quantity}",
                         style: AppStyles.bodyStyle.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(width: 20.sp),
-                      QuantityButton(
-                        icon: Icons.add,
-                        onPressed: onIncrease,
-                      ),
+                      QuantityButton(icon: Icons.add, onPressed: onIncrease),
                     ],
                   ),
                 ],
