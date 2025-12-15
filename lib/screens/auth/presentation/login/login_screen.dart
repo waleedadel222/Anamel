@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:anamel/core/Apis/api_constans.dart';
+import 'package:anamel/core/Apis/api_functions.dart';
 import 'package:anamel/core/common_widgets/main_elevated_button.dart';
 import 'package:anamel/core/common_widgets/text_form_field_widget.dart';
 import 'package:anamel/core/const/app_const.dart';
@@ -140,15 +144,37 @@ class _LoginScreenState extends State<LoginScreen> {
                       onButtonTap: isLoading
                           ? null // disable button when loading
                           : () {
-                              // if (loginFormKey.currentState!.validate()) {
-                              //   context.read<AuthBloc>().add(
-                              //     LoginRequested(
-                              //       email: emailController.text.trim(),
-                              //       password: passwordController.text,
-                              //     ),
-                              //   );
-                              // }
-                              GoRouter.of(context).pushNamed(AppRouting.main);
+                              if (DioHelper.dio == null) {
+                                DioHelper.init();
+                              }
+                              if (loginFormKey.currentState!.validate()) {
+                                DioHelper.postRequest(
+                                      endPionts: ApiConstans.login,
+                                      data: {
+                                        "email": emailController.text,
+                                        "password": passwordController.text,
+                                      },
+                                    )
+                                    .then((response) {
+                                      ApiConstans.userToken =
+                                          "Bearer " +
+                                          response!.data["token"].toString();
+                                      log(ApiConstans.userToken);
+                                      GoRouter.of(
+                                        context,
+                                      ).pushReplacementNamed(AppRouting.main);
+                                    })
+                                    .catchError((error) {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          content: Text("Login failed: $error"),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    });
+                              }
                             },
                     ),
 
