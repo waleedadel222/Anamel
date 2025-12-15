@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:anamel/core/Apis/api_constans.dart';
+import 'package:anamel/core/Apis/api_functions.dart';
 import 'package:anamel/core/common_widgets/main_elevated_button.dart';
 import 'package:anamel/core/common_widgets/text_form_field_widget.dart';
 import 'package:anamel/core/const/app_const.dart';
@@ -211,22 +215,46 @@ class _RegisterScreen extends State<RegisterScreen> {
                       onButtonTap: isLoading
                           ? null
                           : () {
-                              // if (registerFormKey.currentState!.validate()) {
-                              //   context.read<AuthBloc>().add(
-                              //     RegisterRequested(
-                              //       email: emailController.text.trim(),
-                              //       password: passwordController.text,
-                              //       passwordConfirmation:
-                              //           confirmPasswordController.text,
-                              //       firstName: firstNameController.text.trim(),
-                              //       lastName: lastNameController.text.trim(),
-                              //     ),
-                              //   );
-                              // }
-                              GoRouter.of(
-                                context,
-                              ).pushReplacementNamed(AppRouting.main);
+                              if (DioHelper.dio == null) {
+                                DioHelper.init();
+                              }
+                              if (registerFormKey.currentState!.validate()) {
+                                DioHelper.postRequest(
+                                  endPionts: ApiConstans.register,
+                                  data: {
+                                    "email": emailController.text,
+                                    "password": passwordController.text,
+                                    "confirmPassword":
+                                        confirmPasswordController.text,
+                                    "firstName": firstNameController.text,
+                                    "lastName": lastNameController.text,
+                                  },
+                                ).then((response) => log(response!.data));
+
+                                GoRouter.of(context).pushReplacementNamed(
+                                  AppRouting.login,
+                                ); // to Opt to complete register steps
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(" there is an error"),
+                                  ),
+                                );
+                              }
                             },
+
+                      // if (registerFormKey.currentState!.validate()) {
+                      //   context.read<AuthBloc>().add(
+                      //     RegisterRequested(
+                      //       email: emailController.text.trim(),
+                      //       password: passwordController.text,
+                      //       passwordConfirmation:
+                      //           confirmPasswordController.text,
+                      //       firstName: firstNameController.text.trim(),
+                      //       lastName: lastNameController.text.trim(),
+                      //     ),
+                      //   );
+                      // }
                     ),
 
                     // show loading indicator while register
